@@ -1,0 +1,1193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="f86fc530-7241-48c6-a47c-f96f7b2b77ee" name="SimulationCensus" comment="Changes all subprocess calls to native Python functions. Memory usage is not burdensome and runs much faster without having to pipe from grep and awk.&#10;&#10;Adds wall clock time and sorts all simulations (not just production runs) by wall clock time.">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/bash/auto_solvate.sh" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/bash/thermostat_replica.sh" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/inFiles/md.surf.igb.mdin" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/python_analysis/Molecules.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/python_analysis/curves_histograms.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/python_analysis/data_reader.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/python_analysis/nucleicanalysis.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/python_analysis/pytraj_writer.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/python_analysis/vmd_corona.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Analysis/nucleic_analysis.sh" afterPath="$PROJECT_DIR$/Analysis/nucleic_analysis.sh" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CurvesCanal/curvesplot.py" afterPath="$PROJECT_DIR$/CurvesCanal/curvesplot.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bash/.bashrc_git" afterPath="$PROJECT_DIR$/bash/.bashrc_git" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/namd_inputs/run_namd.sh" afterPath="$PROJECT_DIR$/namd_inputs/run_namd.sh" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/python_analysis/Simulation.py" afterPath="$PROJECT_DIR$/python_analysis/Simulation.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/python_analysis/census.py" afterPath="$PROJECT_DIR$/python_analysis/census.py" />
+    </list>
+    <list id="0c7a9d07-ee66-4164-8591-8dd2468c41ed" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/dictionaries/mdmannin.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/python_analysis/__init__.py" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Analysis/Simulation.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Analysis/traj_corona.in" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Analysis/corona-analysis.py" afterPath="$PROJECT_DIR$/python_analysis/corona-analysis.py" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Analysis/dnacurve.py" afterPath="$PROJECT_DIR$/python_analysis/dnacurve.py" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Analysis/gyrationtensor.py" afterPath="$PROJECT_DIR$/python_analysis/gyrationtensor.py" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Analysis/just_histograms.py" afterPath="$PROJECT_DIR$/python_analysis/just_histograms.py" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Analysis/kde_plotter.py" afterPath="$PROJECT_DIR$/python_analysis/kde_plotter.py" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Analysis/ligand_analysis.py" afterPath="$PROJECT_DIR$/python_analysis/ligand_analysis.py" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Analysis/nucleic_analysis.py" afterPath="$PROJECT_DIR$/python_analysis/nucleic_analysis.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bash/full_amber.sh" afterPath="$PROJECT_DIR$/bash/full_amber.sh" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bash/get_time.sh" afterPath="$PROJECT_DIR$/bash/get_time.sh" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <file path="$PROJECT_DIR$/python_analysis/just_histograms.py" ignored="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="run_amber.sh" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/bash/run_amber.sh">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="637" column="8" lean-forward="false" selection-start-line="637" selection-start-column="0" selection-end-line="638" selection-end-column="0" />
+              <folding>
+                <element signature="e#4340#4386#0" expanded="false" />
+                <element signature="e#4399#4446#0" expanded="false" />
+                <element signature="e#4459#4505#0" expanded="false" />
+                <element signature="e#4518#4595#0" expanded="false" />
+                <element signature="e#4608#4655#0" expanded="false" />
+                <element signature="e#4668#4740#0" expanded="false" />
+                <element signature="e#4753#4799#0" expanded="false" />
+                <element signature="e#4812#4860#0" expanded="false" />
+                <element signature="e#4873#4953#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="just_histograms.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/python_analysis/just_histograms.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="400">
+              <caret line="206" column="18" lean-forward="false" selection-start-line="206" selection-start-column="18" selection-end-line="206" selection-end-column="18" />
+              <folding>
+                <element signature="e#0#11#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Simulation.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/python_analysis/Simulation.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="288">
+              <caret line="223" column="50" lean-forward="false" selection-start-line="223" selection-start-column="50" selection-end-line="223" selection-end-column="50" />
+              <folding>
+                <element signature="e#0#15#0" expanded="true" />
+                <element signature="e#1311#2366#0" expanded="false" />
+                <element signature="e#2435#2897#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="thermostat_replica.sh" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/bash/thermostat_replica.sh">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="720">
+              <caret line="40" column="0" lean-forward="false" selection-start-line="40" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="census.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/python_analysis/census.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="702">
+              <caret line="39" column="52" lean-forward="false" selection-start-line="39" selection-start-column="52" selection-end-line="39" selection-end-column="52" />
+              <folding>
+                <element signature="e#0#9#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>gpu</find>
+      <find>grep</find>
+      <find>No md</find>
+      <find>ATOMI</find>
+      <find>print</find>
+      <find>glob</find>
+      <find>getcontext</find>
+      <find>sys_name</find>
+      <find>debug</find>
+      <find>Decima</find>
+      <find>quarter</find>
+      <find>tethered</find>
+      <find>alpha=0.5</find>
+    </findStrings>
+    <replaceStrings>
+      <replace />
+    </replaceStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/bash/server_git.sh" />
+        <option value="$PROJECT_DIR$/bash/folder_setup_server.sh" />
+        <option value="$PROJECT_DIR$/bash/amber_wrapper.sh" />
+        <option value="$PROJECT_DIR$/bash/folder_setup.sh" />
+        <option value="$PROJECT_DIR$/bash/full_amber.sh" />
+        <option value="$PROJECT_DIR$/inFiles/vacmin.in" />
+        <option value="$PROJECT_DIR$/inFiles/heat.weak.pme.mdin" />
+        <option value="$PROJECT_DIR$/inFiles/equil2.weak.pme.mdin" />
+        <option value="$PROJECT_DIR$/inFiles/equil2.lang.pme.mdin" />
+        <option value="$PROJECT_DIR$/inFiles/equil1.lang.pme.mdin" />
+        <option value="$PROJECT_DIR$/inFiles/equil1.weak.pme.mdin" />
+        <option value="$PROJECT_DIR$/bash/get_time.sh" />
+        <option value="$APPLICATION_CONFIG_DIR$/scratches/scratch.py" />
+        <option value="$PROJECT_DIR$/Analysis/Simulation.py" />
+        <option value="$PROJECT_DIR$/Analysis/census.py" />
+        <option value="$PROJECT_DIR$/Analysis/__init__.py" />
+        <option value="$PROJECT_DIR$/python_analysis/gyrationtensor.py" />
+        <option value="$PROJECT_DIR$/inFiles/md.surf.igb.mdin" />
+        <option value="$PROJECT_DIR$/inFiles/md.lang.surf.pme.mdin" />
+        <option value="$PROJECT_DIR$/namd_inputs/3_equil_nvt.conf" />
+        <option value="$PROJECT_DIR$/namd_inputs/4_equil_npt.conf" />
+        <option value="$PROJECT_DIR$/namd_inputs/1_minimize.conf" />
+        <option value="$PROJECT_DIR$/namd_inputs/2_heat.conf" />
+        <option value="$PROJECT_DIR$/namd_inputs/measure_minmax_center.tcl" />
+        <option value="$PROJECT_DIR$/namd_inputs/get_first_ts.tcl" />
+        <option value="$PROJECT_DIR$/namd_inputs/prod_vac.conf" />
+        <option value="$PROJECT_DIR$/namd_inputs/eq_npt.conf" />
+        <option value="$PROJECT_DIR$/namd_inputs/eq_nvt.conf" />
+        <option value="$PROJECT_DIR$/namd_inputs/heat.conf" />
+        <option value="$PROJECT_DIR$/namd_inputs/min.conf" />
+        <option value="$PROJECT_DIR$/namd_inputs/prod_npt.conf" />
+        <option value="$PROJECT_DIR$/namd_inputs/run_namd.sh" />
+        <option value="$PROJECT_DIR$/bash/auto_solvate.sh" />
+        <option value="$PROJECT_DIR$/inFiles/heat.lang.pme.mdin" />
+        <option value="$PROJECT_DIR$/inFiles/md.lang.pme.mdin" />
+        <option value="$PROJECT_DIR$/inFiles/md.weak.pme.mdin" />
+        <option value="$PROJECT_DIR$/python_analysis/pytraj_writer.py" />
+        <option value="$PROJECT_DIR$/bash/.bashrc_git" />
+        <option value="$PROJECT_DIR$/python_analysis/census.py" />
+        <option value="$PROJECT_DIR$/Analysis/nucleic_analysis.sh" />
+        <option value="$PROJECT_DIR$/bash/vmd_loader.sh" />
+        <option value="$PROJECT_DIR$/python_analysis/nucleicanalysis.py" />
+        <option value="$PROJECT_DIR$/bash/traj_cleaner.sh" />
+        <option value="$PROJECT_DIR$/bash/run_amber.sh" />
+        <option value="$PROJECT_DIR$/python_analysis/Simulation.py" />
+        <option value="$PROJECT_DIR$/bash/thermostat_replica.sh" />
+        <option value="$PROJECT_DIR$/python_analysis/just_histograms.py" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="53" />
+    <option name="y" value="116" />
+    <option name="width" value="1867" />
+    <option name="height" value="1084" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+      <manualOrder />
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="Scope" />
+      <pane id="Scratches" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="amber_server_tools" type="b2602c69:ProjectViewProjectNode" />
+              <item name="amber_server_tools" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="amber_server_tools" type="b2602c69:ProjectViewProjectNode" />
+              <item name="amber_server_tools" type="462c0819:PsiDirectoryNode" />
+              <item name="Analysis" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="amber_server_tools" type="b2602c69:ProjectViewProjectNode" />
+              <item name="amber_server_tools" type="462c0819:PsiDirectoryNode" />
+              <item name="bash" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="amber_server_tools" type="b2602c69:ProjectViewProjectNode" />
+              <item name="amber_server_tools" type="462c0819:PsiDirectoryNode" />
+              <item name="inFiles" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="amber_server_tools" type="b2602c69:ProjectViewProjectNode" />
+              <item name="amber_server_tools" type="462c0819:PsiDirectoryNode" />
+              <item name="namd_inputs" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="amber_server_tools" type="b2602c69:ProjectViewProjectNode" />
+              <item name="amber_server_tools" type="462c0819:PsiDirectoryNode" />
+              <item name="python_analysis" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="amber_server_tools" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+            </path>
+            <path>
+              <item name="amber_server_tools" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="&lt; Python 3.5.2 (~/anaconda3/bin/python) &gt;" type="70bed36:NamedLibraryElementNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../vdw_parameterization" />
+    <property name="com.intellij.ide.scratch.LRUPopupBuilder$2/Languages" value="Python" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/python_analysis" />
+      <recent name="$PROJECT_DIR$/Analysis" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/bash" />
+      <recent name="$PROJECT_DIR$/python_analysis" />
+      <recent name="$PROJECT_DIR$/namd_inputs" />
+      <recent name="$PROJECT_DIR$/inFiles" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="Python.just_histograms">
+    <configuration name="gyrationtensor" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/python_analysis" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="amber_server_tools" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/python_analysis/gyrationtensor.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+    </configuration>
+    <configuration name="just_histograms" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/python_analysis" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="amber_server_tools" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/python_analysis/just_histograms.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+    </configuration>
+    <configuration name="run_amber.sh" type="BashConfigurationType" factoryName="Bash" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="bash" />
+      <option name="INTERPRETER_PATH" value="/usr/bin/env" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/bash" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/bash/run_amber.sh" />
+      <option name="PARAMETERS" value="" />
+      <module name="amber_server_tools" />
+      <envs />
+    </configuration>
+    <list size="3">
+      <item index="0" class="java.lang.String" itemvalue="Bash.run_amber.sh" />
+      <item index="1" class="java.lang.String" itemvalue="Python.gyrationtensor" />
+      <item index="2" class="java.lang.String" itemvalue="Python.just_histograms" />
+    </list>
+    <recent_temporary>
+      <list size="3">
+        <item index="0" class="java.lang.String" itemvalue="Python.just_histograms" />
+        <item index="1" class="java.lang.String" itemvalue="Python.gyrationtensor" />
+        <item index="2" class="java.lang.String" itemvalue="Bash.run_amber.sh" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false">
+    <option name="remove_strategy" value="false" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="0c7a9d07-ee66-4164-8591-8dd2468c41ed" name="Default" comment="" />
+      <changelist id="f86fc530-7241-48c6-a47c-f96f7b2b77ee" name="SimulationCensus" comment="" />
+      <created>1512503099927</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1512503099927</updated>
+    </task>
+    <task id="LOCAL-00106" summary="Changes all subprocess calls to native Python functions. Memory usage is not burdensome and runs much faster without having to pipe from grep and awk.&#10;&#10;Adds wall clock time and sorts all simulations (not just production runs) by wall clock time.">
+      <created>1519052450695</created>
+      <option name="number" value="00106" />
+      <option name="presentableId" value="LOCAL-00106" />
+      <option name="project" value="LOCAL" />
+      <updated>1519052450695</updated>
+    </task>
+    <task id="LOCAL-00107" summary="Changes all subprocess calls to native Python functions. Memory usage is not burdensome and runs much faster without having to pipe from grep and awk.&#10;&#10;Adds wall clock time and sorts all simulations (not just production runs) by wall clock time.">
+      <created>1519052473259</created>
+      <option name="number" value="00107" />
+      <option name="presentableId" value="LOCAL-00107" />
+      <option name="project" value="LOCAL" />
+      <updated>1519052473259</updated>
+    </task>
+    <task id="LOCAL-00108" summary="Changes all subprocess calls to native Python functions. Memory usage is not burdensome and runs much faster without having to pipe from grep and awk.&#10;&#10;Adds wall clock time and sorts all simulations (not just production runs) by wall clock time.">
+      <created>1519052503594</created>
+      <option name="number" value="00108" />
+      <option name="presentableId" value="LOCAL-00108" />
+      <option name="project" value="LOCAL" />
+      <updated>1519052503594</updated>
+    </task>
+    <task id="LOCAL-00109" summary="Changes all subprocess calls to native Python functions. Memory usage is not burdensome and runs much faster without having to pipe from grep and awk.&#10;&#10;Adds wall clock time and sorts all simulations (not just production runs) by wall clock time.">
+      <created>1519088240675</created>
+      <option name="number" value="00109" />
+      <option name="presentableId" value="LOCAL-00109" />
+      <option name="project" value="LOCAL" />
+      <updated>1519088240675</updated>
+    </task>
+    <task id="LOCAL-00110" summary="NAMD run files.">
+      <created>1519088384633</created>
+      <option name="number" value="00110" />
+      <option name="presentableId" value="LOCAL-00110" />
+      <option name="project" value="LOCAL" />
+      <updated>1519088384633</updated>
+    </task>
+    <task id="LOCAL-00111" summary="Updates Tcl variables in NAMD inputs.">
+      <created>1519089649832</created>
+      <option name="number" value="00111" />
+      <option name="presentableId" value="LOCAL-00111" />
+      <option name="project" value="LOCAL" />
+      <updated>1519089649832</updated>
+    </task>
+    <task id="LOCAL-00112" summary="Continue amber-type run if minimization rst7 file found.">
+      <created>1519135127765</created>
+      <option name="number" value="00112" />
+      <option name="presentableId" value="LOCAL-00112" />
+      <option name="project" value="LOCAL" />
+      <updated>1519135127765</updated>
+    </task>
+    <task id="LOCAL-00113" summary="Set variable debug_check_progress to True.">
+      <created>1519144215504</created>
+      <option name="number" value="00113" />
+      <option name="presentableId" value="LOCAL-00113" />
+      <option name="project" value="LOCAL" />
+      <updated>1519144215504</updated>
+    </task>
+    <task id="LOCAL-00114" summary="Add commands to load other modules (ex. namd).">
+      <created>1519174768297</created>
+      <option name="number" value="00114" />
+      <option name="presentableId" value="LOCAL-00114" />
+      <option name="project" value="LOCAL" />
+      <updated>1519174768297</updated>
+    </task>
+    <task id="LOCAL-00115" summary="Trial input file for NPT vacuum run with PME.">
+      <created>1519414218685</created>
+      <option name="number" value="00115" />
+      <option name="presentableId" value="LOCAL-00115" />
+      <option name="project" value="LOCAL" />
+      <updated>1519414218685</updated>
+    </task>
+    <task id="LOCAL-00116" summary="Tcl script to measure PBC box dimensions from AMBER7 restart file.">
+      <created>1519418073604</created>
+      <option name="number" value="00116" />
+      <option name="presentableId" value="LOCAL-00116" />
+      <option name="project" value="LOCAL" />
+      <updated>1519418073604</updated>
+    </task>
+    <task id="LOCAL-00117" summary="Tcl script for use with NAMD">
+      <created>1519418159454</created>
+      <option name="number" value="00117" />
+      <option name="presentableId" value="LOCAL-00117" />
+      <option name="project" value="LOCAL" />
+      <updated>1519418159454</updated>
+    </task>
+    <task id="LOCAL-00118" summary="Adds system directory ($path) to file path in cpptraj_strip function.">
+      <created>1519426265577</created>
+      <option name="number" value="00118" />
+      <option name="presentableId" value="LOCAL-00118" />
+      <option name="project" value="LOCAL" />
+      <updated>1519426265577</updated>
+    </task>
+    <task id="LOCAL-00119" summary="Prototype of NAMD run script based on run_amber.sh. Also updates to namd input files.">
+      <created>1519672498116</created>
+      <option name="number" value="00119" />
+      <option name="presentableId" value="LOCAL-00119" />
+      <option name="project" value="LOCAL" />
+      <updated>1519672498116</updated>
+    </task>
+    <task id="LOCAL-00120" summary="Working version of run_namd.sh that uses a continuing_job function for running scripts in a loop. Auto replaces input and output Tcl variables in .conf files. &#10;Updates .conf files to match sed commands.&#10;&#10;To-Do&#10;Fully implement error-checking including previous restart file existence, checking for existing files, production run looping, and write-protecting.">
+      <created>1519679264412</created>
+      <option name="number" value="00120" />
+      <option name="presentableId" value="LOCAL-00120" />
+      <option name="project" value="LOCAL" />
+      <updated>1519679264412</updated>
+    </task>
+    <task id="LOCAL-00121" summary="Updates restraints reference file names for namd inputs.">
+      <created>1519778571499</created>
+      <option name="number" value="00121" />
+      <option name="presentableId" value="LOCAL-00121" />
+      <option name="project" value="LOCAL" />
+      <updated>1519778571499</updated>
+    </task>
+    <task id="LOCAL-00122" summary="Fix for checking MD progress.">
+      <created>1520101944015</created>
+      <option name="number" value="00122" />
+      <option name="presentableId" value="LOCAL-00122" />
+      <option name="project" value="LOCAL" />
+      <updated>1520101944015</updated>
+    </task>
+    <task id="LOCAL-00123" summary="Rollback.">
+      <created>1520102018692</created>
+      <option name="number" value="00123" />
+      <option name="presentableId" value="LOCAL-00123" />
+      <option name="project" value="LOCAL" />
+      <updated>1520102018693</updated>
+    </task>
+    <task id="LOCAL-00124" summary="Initial commit for VMD trajectory loading script.">
+      <created>1520114132035</created>
+      <option name="number" value="00124" />
+      <option name="presentableId" value="LOCAL-00124" />
+      <option name="project" value="LOCAL" />
+      <updated>1520114132035</updated>
+    </task>
+    <task id="LOCAL-00125" summary="Comments out debugging messages. Functional commit.">
+      <created>1520259735097</created>
+      <option name="number" value="00125" />
+      <option name="presentableId" value="LOCAL-00125" />
+      <option name="project" value="LOCAL" />
+      <updated>1520259735097</updated>
+    </task>
+    <task id="LOCAL-00126" summary="Adds gamma_ln=5.0 to heat.lang.pme.mdin file. Without it Amber will crash.">
+      <created>1520282020582</created>
+      <option name="number" value="00126" />
+      <option name="presentableId" value="LOCAL-00126" />
+      <option name="project" value="LOCAL" />
+      <updated>1520282020582</updated>
+    </task>
+    <task id="LOCAL-00127" summary="Adds convenience aliases for 'du' and Python summary of simulation groups.">
+      <created>1520282480993</created>
+      <option name="number" value="00127" />
+      <option name="presentableId" value="LOCAL-00127" />
+      <option name="project" value="LOCAL" />
+      <updated>1520282480993</updated>
+    </task>
+    <task id="LOCAL-00128" summary="IMPORTANT: Changes nonbonded direct force cutoff distance from 9.0A to 8.0A. This should have minimal impact on accuracy, per Amber developers.">
+      <created>1520283272812</created>
+      <option name="number" value="00128" />
+      <option name="presentableId" value="LOCAL-00128" />
+      <option name="project" value="LOCAL" />
+      <updated>1520283272812</updated>
+    </task>
+    <task id="LOCAL-00129" summary="Fixes file name for prmtop in strip_cpptraj function.">
+      <created>1520354289014</created>
+      <option name="number" value="00129" />
+      <option name="presentableId" value="LOCAL-00129" />
+      <option name="project" value="LOCAL" />
+      <updated>1520354289014</updated>
+    </task>
+    <task id="LOCAL-00130" summary="Adds sshfs for mounting storage server on GPU servers.">
+      <created>1520357632505</created>
+      <option name="number" value="00130" />
+      <option name="presentableId" value="LOCAL-00130" />
+      <option name="project" value="LOCAL" />
+      <updated>1520357632505</updated>
+    </task>
+    <task id="LOCAL-00131" summary="Corrects syntax.">
+      <created>1520357672081</created>
+      <option name="number" value="00131" />
+      <option name="presentableId" value="LOCAL-00131" />
+      <option name="project" value="LOCAL" />
+      <updated>1520357672081</updated>
+    </task>
+    <task id="LOCAL-00132" summary="Fixes missing do in for loop.">
+      <created>1520465386186</created>
+      <option name="number" value="00132" />
+      <option name="presentableId" value="LOCAL-00132" />
+      <option name="project" value="LOCAL" />
+      <updated>1520465386186</updated>
+    </task>
+    <task id="LOCAL-00133" summary="Adds alias for mroe.">
+      <created>1520528224123</created>
+      <option name="number" value="00133" />
+      <option name="presentableId" value="LOCAL-00133" />
+      <option name="project" value="LOCAL" />
+      <updated>1520528224123</updated>
+    </task>
+    <task id="LOCAL-00134" summary="Adds glob pattern for trajectory cleaner.">
+      <created>1522090077882</created>
+      <option name="number" value="00134" />
+      <option name="presentableId" value="LOCAL-00134" />
+      <option name="project" value="LOCAL" />
+      <updated>1522090077882</updated>
+    </task>
+    <task id="LOCAL-00135" summary="Skips trajectory if file has been modified recently.">
+      <created>1522351072742</created>
+      <option name="number" value="00135" />
+      <option name="presentableId" value="LOCAL-00135" />
+      <option name="project" value="LOCAL" />
+      <updated>1522351072742</updated>
+    </task>
+    <task id="LOCAL-00136" summary="Periodic update">
+      <created>1522693246164</created>
+      <option name="number" value="00136" />
+      <option name="presentableId" value="LOCAL-00136" />
+      <option name="project" value="LOCAL" />
+      <updated>1522693246164</updated>
+    </task>
+    <task id="LOCAL-00137" summary="Hopefully fixes whatever is causing script to not run on GPUs.">
+      <created>1522693324145</created>
+      <option name="number" value="00137" />
+      <option name="presentableId" value="LOCAL-00137" />
+      <option name="project" value="LOCAL" />
+      <updated>1522693324145</updated>
+    </task>
+    <task id="LOCAL-00138" summary="Changes all subprocess calls to native Python functions. Memory usage is not burdensome and runs much faster without having to pipe from grep and awk.&#10;&#10;Adds wall clock time and sorts all simulations (not just production runs) by wall clock time.">
+      <created>1522693386375</created>
+      <option name="number" value="00138" />
+      <option name="presentableId" value="LOCAL-00138" />
+      <option name="project" value="LOCAL" />
+      <updated>1522693386375</updated>
+    </task>
+    <task id="LOCAL-00139" summary="Can't believe I forgot asterisks while globbing...">
+      <created>1522693467888</created>
+      <option name="number" value="00139" />
+      <option name="presentableId" value="LOCAL-00139" />
+      <option name="project" value="LOCAL" />
+      <updated>1522693467888</updated>
+    </task>
+    <task id="LOCAL-00140" summary="Fixes missing newline that prevent VMD from loading parm info.">
+      <created>1522699527176</created>
+      <option name="number" value="00140" />
+      <option name="presentableId" value="LOCAL-00140" />
+      <option name="project" value="LOCAL" />
+      <updated>1522699527176</updated>
+    </task>
+    <task id="LOCAL-00141" summary="Adds nohup to run_amber.sh alias.">
+      <created>1522881354127</created>
+      <option name="number" value="00141" />
+      <option name="presentableId" value="LOCAL-00141" />
+      <option name="project" value="LOCAL" />
+      <updated>1522881354127</updated>
+    </task>
+    <task id="LOCAL-00142" summary="Change to ./">
+      <created>1522881583314</created>
+      <option name="number" value="00142" />
+      <option name="presentableId" value="LOCAL-00142" />
+      <option name="project" value="LOCAL" />
+      <updated>1522881583314</updated>
+    </task>
+    <task id="LOCAL-00143" summary="Changes all subprocess calls to native Python functions. Memory usage is not burdensome and runs much faster without having to pipe from grep and awk.&#10;&#10;Adds wall clock time and sorts all simulations (not just production runs) by wall clock time.">
+      <created>1522881675374</created>
+      <option name="number" value="00143" />
+      <option name="presentableId" value="LOCAL-00143" />
+      <option name="project" value="LOCAL" />
+      <updated>1522881675374</updated>
+    </task>
+    <task id="LOCAL-00144" summary="Changes all subprocess calls to native Python functions. Memory usage is not burdensome and runs much faster without having to pipe from grep and awk.&#10;&#10;Adds wall clock time and sorts all simulations (not just production runs) by wall clock time.">
+      <created>1522881821660</created>
+      <option name="number" value="00144" />
+      <option name="presentableId" value="LOCAL-00144" />
+      <option name="project" value="LOCAL" />
+      <updated>1522881821660</updated>
+    </task>
+    <task id="LOCAL-00145" summary="Fixes missing $ in strip_cpptraj path variable.">
+      <created>1523040144718</created>
+      <option name="number" value="00145" />
+      <option name="presentableId" value="LOCAL-00145" />
+      <option name="project" value="LOCAL" />
+      <updated>1523040144718</updated>
+    </task>
+    <task id="LOCAL-00146" summary="Update server version.">
+      <created>1523211341715</created>
+      <option name="number" value="00146" />
+      <option name="presentableId" value="LOCAL-00146" />
+      <option name="project" value="LOCAL" />
+      <updated>1523211341715</updated>
+    </task>
+    <task id="LOCAL-00147" summary="Adds check for Python 3.5, and uses recursive flag on glob.glob only if 3.5 or later.">
+      <created>1523211843897</created>
+      <option name="number" value="00147" />
+      <option name="presentableId" value="LOCAL-00147" />
+      <option name="project" value="LOCAL" />
+      <updated>1523211843897</updated>
+    </task>
+    <task id="LOCAL-00148" summary="Check for Python 3.5">
+      <created>1523212011006</created>
+      <option name="number" value="00148" />
+      <option name="presentableId" value="LOCAL-00148" />
+      <option name="project" value="LOCAL" />
+      <updated>1523212011006</updated>
+    </task>
+    <task id="LOCAL-00149" summary="Finish adding checks for Python 3.5 to glob statements.">
+      <created>1523212314199</created>
+      <option name="number" value="00149" />
+      <option name="presentableId" value="LOCAL-00149" />
+      <option name="project" value="LOCAL" />
+      <updated>1523212314199</updated>
+    </task>
+    <task id="LOCAL-00150" summary="One last 3.5 check.">
+      <created>1523212397080</created>
+      <option name="number" value="00150" />
+      <option name="presentableId" value="LOCAL-00150" />
+      <option name="project" value="LOCAL" />
+      <updated>1523212397080</updated>
+    </task>
+    <task id="LOCAL-00151" summary="Fix arguments for strip_cpptraj in md_run function.">
+      <created>1523317923506</created>
+      <option name="number" value="00151" />
+      <option name="presentableId" value="LOCAL-00151" />
+      <option name="project" value="LOCAL" />
+      <updated>1523317923506</updated>
+    </task>
+    <task id="LOCAL-00152" summary="Adds paralleling if $2 is not set.">
+      <created>1523388133389</created>
+      <option name="number" value="00152" />
+      <option name="presentableId" value="LOCAL-00152" />
+      <option name="project" value="LOCAL" />
+      <updated>1523388133389</updated>
+    </task>
+    <task id="LOCAL-00153" summary="Adds explicit write permission to trajin file. Was causing failures for stripping trajectories.">
+      <created>1523462135643</created>
+      <option name="number" value="00153" />
+      <option name="presentableId" value="LOCAL-00153" />
+      <option name="project" value="LOCAL" />
+      <updated>1523462135643</updated>
+    </task>
+    <task id="LOCAL-00154" summary="Adds function to generate missing stripped trajectories using cpptraj.">
+      <created>1523705282250</created>
+      <option name="number" value="00154" />
+      <option name="presentableId" value="LOCAL-00154" />
+      <option name="project" value="LOCAL" />
+      <updated>1523705282250</updated>
+    </task>
+    <option name="localTasksCounter" value="155" />
+    <servers />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="53" y="116" width="1867" height="1084" extended-state="6" />
+    <editor active="true" />
+    <layout>
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.261944" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.10191083" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18743455" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32879582" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31099477" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2498618" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32984293" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.064123824" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3283721" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+    </layout>
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName="*.conf" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="RECENTLY_FILTERED_USER_GROUPS">
+                <collection />
+              </option>
+              <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+                <collection />
+              </option>
+              <option name="COLUMN_ORDER">
+                <list>
+                  <option value="0" />
+                  <option value="1" />
+                  <option value="2" />
+                  <option value="3" />
+                </list>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="IMPORTANT: Changes nonbonded direct force cutoff distance from 9.0A to 8.0A. This should have minimal impact on accuracy, per Amber developers." />
+    <MESSAGE value="Fixes file name for prmtop in strip_cpptraj function." />
+    <MESSAGE value="Adds sshfs for mounting storage server on GPU servers." />
+    <MESSAGE value="Corrects syntax." />
+    <MESSAGE value="Fixes missing do in for loop." />
+    <MESSAGE value="Adds alias for mroe." />
+    <MESSAGE value="Adds glob pattern for trajectory cleaner." />
+    <MESSAGE value="Skips trajectory if file has been modified recently." />
+    <MESSAGE value="Periodic update" />
+    <MESSAGE value="Hopefully fixes whatever is causing script to not run on GPUs." />
+    <MESSAGE value="Can't believe I forgot asterisks while globbing..." />
+    <MESSAGE value="Fixes missing newline that prevent VMD from loading parm info." />
+    <MESSAGE value="Adds nohup to run_amber.sh alias." />
+    <MESSAGE value="Change to ./" />
+    <MESSAGE value="Changes all subprocess calls to native Python functions. Memory usage is not burdensome and runs much faster without having to pipe from grep and awk.&#10;&#10;Adds wall clock time and sorts all simulations (not just production runs) by wall clock time." />
+    <MESSAGE value="Fixes missing $ in strip_cpptraj path variable." />
+    <MESSAGE value="Update server version." />
+    <MESSAGE value="Adds check for Python 3.5, and uses recursive flag on glob.glob only if 3.5 or later." />
+    <MESSAGE value="Check for Python 3.5" />
+    <MESSAGE value="Finish adding checks for Python 3.5 to glob statements." />
+    <MESSAGE value="One last 3.5 check." />
+    <MESSAGE value="Fix arguments for strip_cpptraj in md_run function." />
+    <MESSAGE value="Adds paralleling if $2 is not set." />
+    <MESSAGE value="Adds explicit write permission to trajin file. Was causing failures for stripping trajectories." />
+    <MESSAGE value="Adds function to generate missing stripped trajectories using cpptraj." />
+    <option name="LAST_COMMIT_MESSAGE" value="Adds function to generate missing stripped trajectories using cpptraj." />
+    <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
+    <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
+    <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
+    <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager />
+    <watches-manager />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/inFiles/min.igb.mdin">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="40" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/inFiles/min.pme.mdin">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="648">
+          <caret line="36" column="6" lean-forward="false" selection-start-line="36" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bash/full_amber.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="18">
+          <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/inFiles/heat.weak.pme.mdin">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="118">
+          <caret line="23" column="13" lean-forward="false" selection-start-line="23" selection-start-column="13" selection-end-line="23" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/inFiles/equil1.weak.pme.mdin">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="644">
+          <caret line="39" column="50" lean-forward="false" selection-start-line="39" selection-start-column="50" selection-end-line="39" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/inFiles/equil1.lang.pme.mdin">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="766">
+          <caret line="59" column="0" lean-forward="false" selection-start-line="59" selection-start-column="0" selection-end-line="62" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/inFiles/equil2.weak.pme.mdin">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="104">
+          <caret line="11" column="10" lean-forward="false" selection-start-line="11" selection-start-column="10" selection-end-line="11" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/inFiles/equil2.lang.pme.mdin">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="100">
+          <caret line="22" column="16" lean-forward="true" selection-start-line="22" selection-start-column="16" selection-end-line="22" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Analysis/__init__.py" />
+    <entry file="file://$PROJECT_DIR$/Analysis/ligand_analysis.ipynb">
+      <provider selected="true" editor-type-id="ipnb-editor">
+        <state>
+          <selected id="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Analysis/traj_corona.in" />
+    <entry file="file://$PROJECT_DIR$/python_analysis/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bash/get_time.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2610">
+          <caret line="145" column="2" lean-forward="false" selection-start-line="144" selection-start-column="17" selection-end-line="145" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/anaconda3/lib/python3.5/site-packages/boto/services/result.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="576">
+          <caret line="35" column="13" lean-forward="false" selection-start-line="35" selection-start-column="13" selection-end-line="35" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/python_analysis/gyrationtensor.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1800">
+          <caret line="106" column="5" lean-forward="false" selection-start-line="106" selection-start-column="5" selection-end-line="106" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="72">
+          <caret line="4" column="0" lean-forward="false" selection-start-line="4" selection-start-column="0" selection-end-line="7" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/inFiles/md.surf.igb.mdin">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="595">
+          <caret line="59" column="11" lean-forward="false" selection-start-line="59" selection-start-column="11" selection-end-line="59" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/namd_inputs/measure_minmax_center.tcl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="12" column="0" lean-forward="true" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/namd_inputs/get_first_ts.tcl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="8" column="25" lean-forward="true" selection-start-line="8" selection-start-column="25" selection-end-line="8" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/namd_inputs/eq_nvt.conf">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="586">
+          <caret line="60" column="27" lean-forward="false" selection-start-line="60" selection-start-column="27" selection-end-line="60" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/namd_inputs/eq_npt.conf">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="280">
+          <caret line="51" column="0" lean-forward="false" selection-start-line="51" selection-start-column="0" selection-end-line="60" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/namd_inputs/heat.conf">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="550">
+          <caret line="60" column="27" lean-forward="false" selection-start-line="60" selection-start-column="27" selection-end-line="60" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/namd_inputs/run_namd.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="8640">
+          <caret line="480" column="36" lean-forward="false" selection-start-line="480" selection-start-column="36" selection-end-line="480" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/namd_inputs/prod_npt.conf">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="748">
+          <caret line="88" column="0" lean-forward="false" selection-start-line="88" selection-start-column="0" selection-end-line="88" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/namd_inputs/min.conf">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="892">
+          <caret line="53" column="27" lean-forward="false" selection-start-line="53" selection-start-column="27" selection-end-line="53" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/namd_inputs/prod_vac.conf">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="658">
+          <caret line="83" column="0" lean-forward="false" selection-start-line="83" selection-start-column="0" selection-end-line="89" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Analysis/corona_vmd.tcl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="244">
+          <caret line="25" column="32" lean-forward="true" selection-start-line="25" selection-start-column="32" selection-end-line="25" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/inFiles/md.lang.surf.pme.mdin">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="18" column="8" lean-forward="false" selection-start-line="18" selection-start-column="8" selection-end-line="18" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/inFiles/md.lang.pme.mdin">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="972">
+          <caret line="54" column="8" lean-forward="false" selection-start-line="54" selection-start-column="8" selection-end-line="54" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bash/cpptraj_in_writer.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1832">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bash/server_git.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Analysis/census.sh" />
+    <entry file="file://$PROJECT_DIR$/python_analysis/corona-analysis.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/python_analysis/pytraj_writer.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="5" column="0" lean-forward="false" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Analysis/analysis.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/python_analysis/nucleic_analysis.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="9" column="29" lean-forward="true" selection-start-line="9" selection-start-column="29" selection-end-line="9" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/python_analysis/ligand_analysis.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Analysis/nucleic_analysis.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2052">
+          <caret line="114" column="0" lean-forward="false" selection-start-line="114" selection-start-column="0" selection-end-line="117" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bash/traj_cleaner.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="396">
+          <caret line="22" column="20" lean-forward="false" selection-start-line="22" selection-start-column="20" selection-end-line="22" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/python_analysis/curves_histograms.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bash/run_amber.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="637" column="8" lean-forward="false" selection-start-line="637" selection-start-column="0" selection-end-line="638" selection-end-column="0" />
+          <folding>
+            <element signature="e#4340#4386#0" expanded="false" />
+            <element signature="e#4399#4446#0" expanded="false" />
+            <element signature="e#4459#4505#0" expanded="false" />
+            <element signature="e#4518#4595#0" expanded="false" />
+            <element signature="e#4608#4655#0" expanded="false" />
+            <element signature="e#4668#4740#0" expanded="false" />
+            <element signature="e#4753#4799#0" expanded="false" />
+            <element signature="e#4812#4860#0" expanded="false" />
+            <element signature="e#4873#4953#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bash/.bashrc_git">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1188">
+          <caret line="66" column="1" lean-forward="false" selection-start-line="66" selection-start-column="1" selection-end-line="66" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bash/thermostat_replica.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="720">
+          <caret line="40" column="0" lean-forward="false" selection-start-line="40" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/python_analysis/nucleicanalysis.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="540">
+          <caret line="39" column="23" lean-forward="false" selection-start-line="39" selection-start-column="23" selection-end-line="39" selection-end-column="23" />
+          <folding>
+            <element signature="e#0#17#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bash/vmd_loader.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="634">
+          <caret line="43" column="10" lean-forward="false" selection-start-line="43" selection-start-column="10" selection-end-line="43" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bash/auto_solvate.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="828">
+          <caret line="46" column="14" lean-forward="true" selection-start-line="46" selection-start-column="14" selection-end-line="46" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/inFiles/heat.lang.pme.mdin">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="576">
+          <caret line="32" column="63" lean-forward="false" selection-start-line="32" selection-start-column="63" selection-end-line="32" selection-end-column="63" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/python_analysis/census.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="702">
+          <caret line="39" column="52" lean-forward="false" selection-start-line="39" selection-start-column="52" selection-end-line="39" selection-end-column="52" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/inFiles/md.weak.pme.mdin">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="892">
+          <caret line="54" column="8" lean-forward="false" selection-start-line="54" selection-start-column="8" selection-end-line="54" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/python_analysis/Simulation.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="288">
+          <caret line="223" column="50" lean-forward="false" selection-start-line="223" selection-start-column="50" selection-end-line="223" selection-end-column="50" />
+          <folding>
+            <element signature="e#0#15#0" expanded="true" />
+            <element signature="e#1311#2366#0" expanded="false" />
+            <element signature="e#2435#2897#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/python_analysis/just_histograms.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="400">
+          <caret line="206" column="18" lean-forward="false" selection-start-line="206" selection-start-column="18" selection-end-line="206" selection-end-column="18" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>

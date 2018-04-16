@@ -1,0 +1,16 @@
+indir="/media/mdmannin/Storage/dnaLigands/"
+syst="nBuBuOHNH-80bp-01M"
+cd ${indir}${syst}
+outname="r+DNA_all"
+
+rm ${indir}${syst}/${outname}*.*
+/home/mdmannin/curves+/Cur+<<!
+&inp
+ ftop=strip.${syst}.prmtop, file=strip.md2.nc
+ lis=${outname},ions=.t,axfrm=.t,
+ lib=/home/mdmannin/curves+/standard,
+&end
+2 1 -1 0 0
+1:80
+160:81 
+!

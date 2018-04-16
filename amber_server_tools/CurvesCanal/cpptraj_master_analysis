@@ -1,0 +1,15 @@
+### Cpptraj Analysis Master File
+### Matthew Manning
+### Yingling Soft Matter Group
+### North Carolina State University
+### September 20, 2017
+
+### Radius of gyration
+radgyr out file.dat $mask [mass] [nomax] [tensor]
+
+#End to End Distance
+distance :start :stop out file.dat [noimage]
+
+#Principal Axes (eg. for anisotropy index calculation)
+principal @%nz out file.dat
+

@@ -1,0 +1,8 @@
+indir="/media/mdmannin/Storage/dnaLigands/nBuBuOHNH-80bp-01M/"
+cd ${indir}
+rm r+DNA_canionN30*.*
+/home/mdmannin/curves+/canion<<!
+&inp
+ lis=r+DNA_canionN30, dat=r+DNA_ions.cdi, type=N30,
+&end
+!

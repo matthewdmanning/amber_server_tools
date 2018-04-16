@@ -1,0 +1,15 @@
+outname="curves_snap"
+
+rm ${outname}*.*
+/home/mdmannin/curves+/Cur+<<!
+&inp
+ ftop=strip.prmtop, file=strip.md2.pdb,
+ sol=nz, naxlim=30, ibld=nz,
+ lis=${outname}, ions=.t, axfrm=.f, fit=.f, 
+ lib=/home/mdmannin/curves+/standard,
+&end
+2 1 -1 0 0
+1:100
+200:101 
+!
+

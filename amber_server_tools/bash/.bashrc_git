@@ -1,0 +1,70 @@
+
+# Source global definitions
+if [ -f /etc/bashrc ]; then
+	. /etc/bashrc
+fi
+
+# don't put duplicate lines or lines starting with space in the history.
+# See bash(1) for more options
+HISTCONTROL=ignoreboth
+# append to the history file, don't overwrite it
+shopt -s histappend
+# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
+HISTSIZE=1000
+HISTFILESIZE=2000
+# check the window size after each command and, if necessary,
+# update the values of LINES and COLUMNS.
+shopt -s checkwinsize
+
+# enable color support of ls and also add handy aliases
+if [ -x /usr/bin/dircolors ]; then
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    alias ls='ls --color=auto'
+    alias dir='dir --color=auto'
+    alias vdir='vdir --color=auto'
+
+    alias grep='grep --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias egrep='egrep --color=auto'
+fi
+
+# colored GCC warnings and errors
+export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
+#FFFFFF
+# Set and source latest version of AMBER
+module load amber/16
+module load ambertools/17
+echo "$AMBERHOME"
+# some more ls aliases
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'v
+alias mroe='more'
+alias du='du -h --max-depth=1'
+alias sims="python3 ${repo}/python_analysis/census.py"
+
+sshfs mdmannin@yystorage.mse.ncsu.edu:/media/sdc1/mdmannin /home/mdmannin/storage -o follow_symlinks,workaround=rename,uid=`id -u`,gid=`id -g`,Ciphers=arcfour
+
+# PATHS
+export PATH=$PATH:/home/mdmannin/git/amber_server_tools/amber_server_tools
+
+# User specific aliases and functions
+alias htop="htop -u mdmannin"
+alias ls='ls -ltrh --color=auto'
+alias getweak="source ${repo}/bash/folder_setup_server.sh weak pme"
+alias getlang="source ${repo}/bash/folder_setup_server.sh lang pme"
+alias traj="source ${repo}/bash/traj_cleaner.sh"
+#alias amber="source ${repo}/bash/run_amber.sh"
+alias runamber="nohup ${repo}/bash/run_amber.sh"
+
+# Load other modules.
+module load namd/2.12_cuda
+#module load lammps/11Aug17
+#module load hoomd/2.1.2
+#source /usr/local/apps/env/gromacs-2016.4
+#module load matlab/R2017a
+#module load packmol/17.163
+#module load povray/3.6.1
+#module load resp/2.2
+#source /usr/local/apps/env/tcllib.tcl
+#module load vmd/1.9.3

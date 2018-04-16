@@ -1,0 +1,40 @@
+Energy minimization w/5.0 kcal/mol restraint
+ &cntrl
+   ! Inputs
+   imin=1,				! MD
+   !ntx=1				! 5=Read in velocities from .rst7
+   !irest=0, 			! Restart/Read velocities
+   
+   ! Energy minimization
+   maxcyc=5000			! Max number of cycles
+   ncyc=10				! Cycles of steepest descent before switch to conj grad
+   drms=0.01			! convergence criterion
+   
+   ! Outputs and Formats
+   ntxo=1, 				! NetCDF fromat
+   ntpr=50, 			! Print mdinfo and mdout
+   ntave=0				! Running energy average and fluctuations
+   ntwr=50, 			! Print restart
+   iwrap=1,				! Wrap coordinates back to original PBC box
+   ntwx=0,  			! Write to TRAJ .nc file.
+   ioutfm=1, 			! Use NetCDF for mdcrd, mdvel, and inptraj
+   ntwprt=0, 			! Include all atom in trajectory
+   
+   ! Restraints
+   ntr=1				! Restrain atoms
+   restraint_wt=5.0		! Restraint in kcal/mol-A^2
+   restraintmask='*'
+ 	
+   ! SHAKE
+   !ntc=1, 				! No SHAKE for minimization - 1
+   !tol=0.00001, 		! Geo tolerance for coordinate resetting, default 0.00001, rec:<0.00005
+   
+   ! Potential Function Parameters
+   !ntf=1, 				! Force eval, should match ntc
+   !ntb=1, 				! 1 for constant volume in minimization
+   !dielc=1.0,			! Only for quasi-vacuum
+   cut=100,	 			! Nonbonded cutoff, rec 8 for PME
+   nsnb=100,			! Frequency of nonbonded list updates, default 25
+   igb=1				! Generalized Born implicit solvent
+/
+! Varying Conditions - ex. stepwise heating

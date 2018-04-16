@@ -1,0 +1,63 @@
+Equilibration Run #2 with 0.01 kcal/mol restraints - NPT weak
+ &cntrl
+   ! Inputs
+   imin=0,				! MD
+   ntx=5				! Read in velocities from .rst7
+   irest=1, 			! Restart/Read velocities
+   
+   ! Outputs and Formats
+   ntxo=1, 				! NetCDF fromat
+   ntpr=250, 			! Print mdinfo and mdout
+   ntave=0				! Running energy average and fluctuations
+   ntwr=250,			! Print restart
+   iwrap=1,				! Wrap coordinates back to original PBC box
+   ntwx=0,  			! TRAJECTORY output
+   ioutfm=1, 			! Use NetCDF for mdcrd, mdvel, and inptraj
+   ntwprt=0, 			! Include all atom in trajectory
+   
+   ! Restraints
+   ntr=1				! Restrain atoms
+   restraint_wt=0.01	! Restraint in kcal/mol-A^2
+   restraintmask='!:WAT,Na+,Cl-'
+   
+   ! MD Settings
+   nstlim=10000, 		! Number of steps
+   nscm=1000,			! Remove translation COM motion
+   dt=0.002, 			! Timestep (0.002 for SHAKE, 0.001 otherwise)
+   
+   ! Temperature Regulation
+   ntt=1, 				! Temp regulation (1-weak-coupling, 2-Andersen, 3-Langevin, 9-Opt. Isokinetic Nose-Hoover, 10-Stochastic Iso NH)
+   temp0=300.0,			! Ref temperature
+   !tempi=300.0, 		! Initial temp, no effect is ntx > 3
+   ig=-1				! seed for pseudo-rng, -1=based on time/dat, required for Langevin and Andersen (ntt=2/3)
+   tautp=2.5   			! Coupling to heat bath (only for ntt=1), smaller=tighter coupling, faster heating, less natural traj
+   !gamma_ln=0			! collision freq/ps (for ntt=3) see pg 315 of Amber16 ref manual
+
+   ! Pressure Regulation
+   ntp=1, 				! Constant P, 0=no p scaling, 1=md with isotropic pos scaling, 2= md with aniso scaling (membranes), 3=semi-iso (only for const. surf. ten. - csurften > 0)
+   barostat=1			! 1=Berendsen, 2=Monte Carlo (use mcbarint for step interval)
+   pres0=1.0, 			! Ref pressure in bars
+   taup=1.0,			! Pressure relax. time (ps), default=1.0, recom. 1.0-5.0 -> Larger if traj is unstable
+   
+   ! Surface tension (ex. lipid membrane) see pg 317 of Amber16 manual
+   !csurften=0			! 1=interfaces in yz, 2=xz, 3=xy
+   !gamma_ten=0.0		! Surf ten in dyne/cm
+   !ninterface			! number of interfaces (default 2)
+   
+   ! SHAKE
+   ntc=2, 				! 1=No SHAKE, 2=hydrogen bonds, 3=all bonds
+   tol=0.00001, 		! Geo tolerance for coordinate resetting, default 0.00001, rec:<0.00005
+   
+   ! Potential Function Parameters
+   ntf=2, 				! Force eval, should match ntc
+   ntb=2, 				! PBC, 0=none and PME off, 1=const. volume, 2=const. pressure,
+   !dielc=1.0,			! Only for quasi-vacuum
+   cut=9.0, 			! Nonbonded cutoff, rec 8 for PME
+   nsnb=25,				! Frequency of nonbonded list updates, default 25
+   !igb=0				! Generalized Born implicit solvent
+/
+! Varying Conditions - ex. stepwise heating
+! Varying Conditions - ex. stepwise heating
+&wt type='RESTRAINT_WT', istep1=0, istep2=5000, value1=0.1, value2=0.01 /
+&wt type='RESTRAINT_WT', istep1=5001, istep2=10000, value1=0.01, value2=0.01/
+&wt type='END' /
