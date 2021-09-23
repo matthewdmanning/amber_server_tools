@@ -5,7 +5,8 @@ import Simulation
 import plotly
 import IPython.display
 
-sys.path.insert(0, '/home/mdmannin/PycharmProjects/amber_server_tools/python_analysis')
+
+sys.path.insert(0, '/home/manbuntu/PycharmProjects/amber_server_tools/amber_server_tools/python_analysis')
 pickling_dir = '/home'
 
 plotly.tools.set_credentials_file(username='mdmannin', api_key='6krwZfpc2JfnWARnNzUb')

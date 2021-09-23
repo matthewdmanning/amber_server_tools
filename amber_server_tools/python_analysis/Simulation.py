@@ -206,7 +206,7 @@ class SimulationSystem():
         if sys.version_info[1] < 5:
             self.allout_filenames = [f for f in glob.glob('{}/{}'.format(self.directory, allout_pattern))
                                  if os.path.isfile(f)]
-            self.mdout_filenames = [f for f in glob.glob('{}/{}'.format(self.directory, stripdout_pattern)) if
+            self.mdout_filenames = [f for f in glob.glob('{}/{}'.format(self.directory, mdout_pattern)) if
                                     os.path.isfile(f)]
         if sys.version_info[1] >= 5:
             self.allout_filenames = [f for f in
