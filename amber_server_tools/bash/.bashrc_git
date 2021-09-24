@@ -32,8 +32,8 @@ fi
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 #FFFFFF
 # Set and source latest version of AMBER
-module load amber/16
-module load ambertools/17
+module load amber
+module load ambertools
 echo "$AMBERHOME"
 # some more ls aliases
 alias ll='ls -alF'
@@ -43,7 +43,8 @@ alias mroe='more'
 alias du='du -h --max-depth=1'
 alias sims="python3 ${repo}/python_analysis/census.py"
 
-sshfs mdmannin@yystorage.mse.ncsu.edu:/media/sdc1/mdmannin /home/mdmannin/storage -o follow_symlinks,workaround=rename,uid=`id -u`,gid=`id -g`,Ciphers=arcfour
+sshfs mdmannin@yystorage.mse.ncsu.edu:/media/sdc1/mdmannin /home/mdmannin/storage -o follow_symlinks,workaround=rename,uid=`id -u`,gid=`id -g`
+sshfs mdmannin@yystorage.mse.ncsu.edu:/media/sdb1/Storage/mdmannin /home/mdmannin/storage2 -o follow_symlinks,workaround=rename,uid=`id -u`,gid=`id -g`
 
 # PATHS
 export PATH=$PATH:/home/mdmannin/git/amber_server_tools/amber_server_tools

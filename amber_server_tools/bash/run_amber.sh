@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Script for running MD simulations using AMBER
 
-module load amber/16
+module load amber
 
 
 ### Displays name of job on server and Cacti.
@@ -166,8 +166,8 @@ run() {
                 ;;
             esac
     done
-	if [[ ( ! -f ${rst} || ${overwrite}=="True" ) && -f ${in_coords} ]]; then
-	    if [[ ${overwrite}=="True" ]]; then
+	if [[ ( ! -f ${rst} || ${overwrite} == "True" ) && -f ${in_coords} ]]; then
+	    if [[ ${overwrite} == "True" ]]; then
 	        printf "Files %s will be overwritten.\n" "${in_coords} ${traj} ${mdout}"
         fi
         printf "Equilibration 1: %s\n"  "${system}"
@@ -194,7 +194,7 @@ run() {
 method_loop(){
     printf "Starting method loop.\n"
     local path=$1
-	local system=$2
+	  local system=$2
     local in_dir=$3
     local ref=$4
     local prev_method=$5
@@ -290,7 +290,7 @@ generic_job(){
     fi
 }
 
-### Function for full minimization, heat, MD run
+### Function for full simulation sequence: minimization, heat, equils, MD run
 amber_run(){
 	### Get GPU with most resources
 	#export CUDA_VISIBLE_DEVICES=0,1      # this is GPU card number
@@ -582,10 +582,11 @@ job_runner(){
     fi
 }
 
+# Loops through multiple topologies.
 parm(){
 	local run_type=$1
 	local loops=$2
-    local glob_pattern=$3
+  local glob_pattern=$3
 	shift 3
     for parm in *${glob_pattern}*.prmtop; do
         ((i=i%batch_size)); ((i++==0)) && wait
@@ -602,6 +603,7 @@ parm(){
         fi
     done
 }
+
 
 folder(){
 # Serial processing for runs
@@ -625,7 +627,7 @@ current(){
     local run_type=$1
     local loops=$2
     for parm in *.prmtop; do
-        if [[ -f ${parm} ]] && [[ ${parm} != "ions.*" ]] && ${parm} != "strip.*" ]]; then
+        if [[ -f ${parm} ]] && [[ ${parm} != "ions.*" ]] && [[ ${parm} != "strip.*" ]]; then
             system=${parm/'.prmtop'}
             job_runner "./" "$system" "$run_type" "$loops"
         fi
@@ -634,6 +636,10 @@ current(){
 # Function for setting number of CPUs cores to use.
 power2() { echo "x=l($1)/l(2); scale=0; 2^((x+0.5)/1)" | bc -l; }
 
+###
+### SETTINGS FOR MAIN PROGRAM
+###
+unset run_type; unset loop_type
 gpu_list="0,1,2,3,4,5,6,7"
 gpu="pmemd.cuda -O"
 gpu_count=1
@@ -660,7 +666,7 @@ while [[ $1 = -* ]]; do
             ;;
         -amber)
             printf "Running minimization, heating, two equilibrations and MD...\n"
-            run_type=amber
+            run_type="amber"
             if [[ $1 != "-"* ]]; then
                 loops=$1
                 shift
@@ -669,7 +675,7 @@ while [[ $1 = -* ]]; do
             ;;
         -md)
             printf "Running production runs...\n"
-            run_type=md
+            run_type="md"
             if [[ $1 != "-"* ]]; then
                 loops=$1
                 shift
@@ -678,17 +684,17 @@ while [[ $1 = -* ]]; do
             ;;
         -vacmin)
             printf "Running minimizations in vacuo...\n"
-            run_type=vacmin
+            run_type="vacmin"
             if [[ $1 != "-"* ]]; then
                 loops=$1
                 shift
             fi
             ;;
         -p)
-		    glob_pattern=$1
-		    printf "Running systems containing %s.\n" $glob_pattern
-		    shift
-		    ;;
+            glob_pattern=$1
+            printf "Running systems containing %s.\n" $glob_pattern
+            shift
+            ;;
         -gpu)
             if [[ $1 != "-"* ]]; then
                 gpu_list=$1
@@ -748,8 +754,9 @@ echo "$cpu"
 if [[ $gpu_count == 1 ]]; then
     gpu="pmemd.cuda -O"
 fi
-
-if [[ ${run_type} == "vacmin" ]] && [[ ${batch_size} -eq 999 ]]; then
+if [[ -z ${run_type} ]]; then
+    printf "No run type (vacmin, amber, md) selected.\n"
+elif [[ ${run_type} == "vacmin" ]] && [[ ${batch_size} -eq 999 ]]; then
 	batch_size=1
 elif [[ ${run_type} != 'amber' ]] && [[ ${batch_size} -eq 999 ]]; then
     printf "Counting topologies to divide CPU cores.\n"
@@ -760,7 +767,9 @@ elif [[ ${run_type} != 'amber' ]] && [[ ${batch_size} -eq 999 ]]; then
         fi
     done
     cpu_num=`power2 $(( 32/parm_count ))`
+    echo "Using ${cpu_num} CPU cores for each minimization. Running in batches of ${batch_size}."
 fi
+cpu="mpirun -np ${cpu_num} pmemd.MPI -O"
 
 
 if [[ ${loop_type} == "folder" ]]; then
@@ -773,5 +782,5 @@ elif [[ ${loop_type} == "current" ]]; then
     printf "Running system in the current directory...\n"
     current "$run_type" "$loops"
 else
-    printf "No run type found. Only %s. Scripting ending...\n\n" "$run_type"
+    printf "No loop type found. Only %s. Scripting ending...\n\n" "$loop_type"
 fi
