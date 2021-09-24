@@ -665,21 +665,21 @@ while [[ $1 = -* ]]; do
             printf "Running AMBER on system in this directory.\n"
             ;;
         -amber)
-            printf "Running minimization, heating, two equilibrations and MD...\n"
             run_type="amber"
             if [[ $1 != "-"* ]]; then
                 loops=$1
                 shift
             fi
             check_md_inputs 'amber'
+            printf "Running minimization, heating, two equilibrations and %s production runs...\n" "$loops"
             ;;
         -md)
-            printf "Running production runs...\n"
             run_type="md"
             if [[ $1 != "-"* ]]; then
                 loops=$1
                 shift
             fi
+            printf "Running %s production runs...\n" "$loops"
             check_md_inputs 'md'
             ;;
         -vacmin)
@@ -720,14 +720,15 @@ while [[ $1 = -* ]]; do
             batch="True"
             if [[ $1 != "-"* ]]; then
                 batch_size=$1
+                shift
                 cpu_num=`power2 $(( 32/batch_size ))`
                 printf "Using %s CPU cores for minimizing.\n" "$cpu_num"
-                shift
             fi
             ;;
         -k)
             if [[ $1 != "-"* ]]; then
                 keep_frame_step=$1
+                printf "Keeping solvent every %s frames.\n" "$keep_frame_step"
                 shift
             fi
             ;;
@@ -735,15 +736,14 @@ while [[ $1 = -* ]]; do
             overwrite="True"
             ;;
         -types) # Specify run names (eg. heat, equil1, md, etc)
-            while [[ $1 != "-"* ]]; do
+            while [[ $1 != "-"* ]] && [[ $1 != "&"* ]]; do
                 method_array+=("$1")
-                printf " $1 "
                 shift
             done
             printf "Using these run types: %s\n" "${method_array[@]}"
             run_type="method"
             ;;
-        esac
+    esac
 done
 
 debug_check_progress="True"
