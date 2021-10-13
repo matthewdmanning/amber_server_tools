@@ -2,16 +2,17 @@ import os
 import sys
 import pickle
 import Simulation
-import plotly
-import IPython.display
+#import plotly
+#import IPython.display
 
 
-sys.path.insert(0, '/home/manbuntu/PycharmProjects/amber_server_tools/amber_server_tools/python_analysis')
+#sys.path.insert(0, '/home/manbuntu/PycharmProjects/amber_server_tools/amber_server_tools/python_analysis')
 pickling_dir = '/home'
 
-plotly.tools.set_credentials_file(username='mdmannin', api_key='6krwZfpc2JfnWARnNzUb')
-plotly.tools.set_config_file(world_readable=True,
-                             sharing='public')
+#plotly.tools.set_credentials_file(username='mdmannin', api_key='6krwZfpc2JfnWARnNzUb')
+#plotly.tools.set_config_file(world_readable=True,sharing='public')
+
+
 def main():
     directory = os.getcwd()
     directory = './'
@@ -24,6 +25,7 @@ def main():
         current_experiment.print_summary()
     return current_experiment
 
+'''
 def plot_sims(exp_group):
     my_dboard = plotly.dashboard_objs.Dashboard()
     my_dboard.get_preview()
@@ -47,10 +49,10 @@ def plot_sims(exp_group):
         #plotly.plotly.iplot(hbar_data, filename=simsys.system_name)
 
 #def pickle_sims(exp_group):
-
+'''
 
 
 
 if __name__ == "__main__":
     exp_group = main()
-    plot_sims(exp_group)
+    #plot_sims(exp_group)
