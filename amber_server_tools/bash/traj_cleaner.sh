@@ -89,6 +89,8 @@ strip_traj(){
     fi
 }
 
+unset serial
+unset glob_pattern
 glob_pattern="$1"
 serial="$2"
 echo "Starting trajectory cleaning run."
