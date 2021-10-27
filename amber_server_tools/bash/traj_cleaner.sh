@@ -2,7 +2,8 @@
 module load amber/16
 
 keep_frame=10
-not_running_time=600 # Criterion for deciding whether a trajectory is being written to by running sim (in seconds).
+dormant_cutoff_seconds=600 # Criterion for deciding whether a trajectory is being written to by running sim (in seconds).
+delete_old_traj="False"
 
 path_loop(){
 search_pattern="$1"
@@ -44,14 +45,14 @@ strip_traj(){
     if [[ ${traj} == "ion"* ]] || [[ ${traj} == "strip"* ]] || [[ ${traj} == *"skip"* ]] || [[ ${traj} == "strip"* ]]; then
         return 0
     fi
-    current_time=$(date +%s)
+    current_time=$(date +%s) #Gives echo time in seconds.
     modified_time=$(date +%s -r ${traj})
-    modified_time=$(( current_time - modified_time - not_running_time ))
-    echo ${not_running_time}
-    printf "Time since %s was last modified: %s.\n" "${traj}" "${modified_time}"
-    if [[ ${modified_time} < ${not_running_time} ]]; then
-        echo "dormant"
+    dormant_time=$(( current_time - dormant_time ))
+    #printf "Time since %s was last modified %s ago.\n" "${traj}" "${dormant_time}"
+    if [[ ${dormant_time} -gt ${dormant_cutoff_seconds} ]]; then
+        printf "%s has not been modified for more than %s.\n" "${traj}" "${dormant_cutoff_seconds}"
     else
+        printf "%s might still be active. It was last modified %s seconds ago. Going to next traj. \n" "${traj}" "${dormant_time}"
         return 0
     fi
     trimname=${traj%'.nc'}
@@ -63,11 +64,11 @@ strip_traj(){
     if [[ -f "$strip_name" ]]; then
         printf "Stripped trajectory already exists. %s\n" "$strip_name"
     fi
-    if [[ ${modified_time} > 0 ]]; then
+    if [[ ${dormant_time} -gt 0 ]]; then
         echo "This traj: ${traj}"
         echo "parm ${system}.prmtop" > traj.in
         echo "trajin ${traj}" >> traj.in
-        echo $skipname
+        echo ${skipname}
         echo "trajout ${skipname} offset ${keep_frame}" >> traj.in
         echo "run" >> traj.in
         if [[ ! -f ions.${traj} ]]; then
@@ -79,8 +80,9 @@ strip_traj(){
         echo "quit" >> traj.in
         echo "Running cpptraj script."
         cpptraj -i traj.in  | grep -v 'Could not determine atomic number from'
-        echo "Trajectory processed."
-        if [[ -f ${skipname} ]] && [[ -f ions.${traj} ]]; then
+        echo "Trajectory processed. Write protecting processed files."
+        chmod -w ${strip_name} ${skipname}
+        if [[ -f ${skipname} ]] && [[ -f ions.${traj} ]] && [[ ${delete_old_traj} == "True" ]]; then
             chmod +w ${traj}
             rm ${traj}
             echo "Full length trajectory removed."
@@ -91,10 +93,29 @@ strip_traj(){
 
 unset serial
 unset glob_pattern
-glob_pattern="$1"
-serial="$2"
+while [[ $1 = -* ]]; do
+    arg=$1; shift           # shift the found arg away.
+
+    case $arg in
+      -p)
+        glob_pattern=$1
+        shift 1
+        ;;
+      -serial)
+        serial="True"
+        ;;
+      -delete)
+        delete_old_traj="True"
+        ;;
+      -keep)
+        keep_frame=$1
+        shift
+        ;;
+    esac
+done
+
 echo "Starting trajectory cleaning run."
-if [[ $1 == './' ]]; then
+if [[ "$glob_pattern" == './' ]]; then
     path_loop './'
 else
     path_loop "$glob_pattern"

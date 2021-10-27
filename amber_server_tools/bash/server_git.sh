@@ -7,3 +7,10 @@ repo=amber_server_tools
 
 (cd "${repo}" && git checkout master && git up)
 
+if [ -f /home/mdmannin/git/amber_server_tools/amber_server_tools/ ]; then
+	repo=/home/mdmannin/git/amber_server_tools/amber_server_tools
+elif [ -f /home/mdmannin/git/amber_server_tools/ ]; then
+	repo=/home/mdmannin/git/amber_server_tools
+else
+	printf "No git directory found. amber_server_tools not available!"
+fi
