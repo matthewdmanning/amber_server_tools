@@ -21,14 +21,14 @@ skip_size_buffer=98 # Allows (100-x) undershoot of file size of solvent strip tr
 logfile="mover.log"
 
 path_loop(){
-search_pattern="$1"
-for path in *$search_pattern*/; do
+search_pattern=$1
+for path in *"$search_pattern"*/; do
     if [[ -d ${path} ]] && [[ ${path} != "ins/" ]]; then
         cd "${path}" || continue
         system=${path/'/'}
         #echo "${system}"
         if [[ -z ${serial} ]]; then
-            source_loop "$system"
+            move_file "$system"
         fi
         cd ..
     fi
@@ -57,7 +57,7 @@ bigger_file(){
 
 move_file(){
     system="$1"
-    destination_sub="${destination}/${system}"
+    destination_sub="${destination/'/'}/${system}"
     if [[ ! -d ${destination_sub} ]] && [[ "${create_folder}" == "True" ]]; then
       mkdir "${destination_sub}"
     elif [[ ! -d ${destination_sub} ]] && [[ "${create_folder}" == "False" ]]; then
@@ -115,6 +115,7 @@ move_file(){
 
 unset serial
 unset glob_pattern
+unset destination
 
 while [[ $1 = -* ]]; do
     arg=$1; shift           # shift the found arg away.
@@ -159,6 +160,8 @@ done
 if [[ "$copied_folder" == "True" ]]; then
   delete_old_traj="False"
 fi
+
+[[ -z "${destination}" ]] && printf "No destination given. Script not run.\n" && return 0
 
 printf "Moving files.\n"
 if [[ "$glob_pattern" == './' ]]; then
