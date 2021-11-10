@@ -1,40 +1,49 @@
 #!/usr/bin/env bash
-module load amber/16
+module load amber
 
 keep_frame=10
 dormant_cutoff_seconds=600 # Criterion for deciding whether a trajectory is being written to by running sim (in seconds).
 delete_old_traj="False"
+write_protect="True"
+max_md_num=200
+solute_percent=2 # Minimum file size of stripped trajectory as percentage of original trajectory
+skip_size_buffer=98 # Allows (100-x) undershoot of file size of solvent strip trajectory.
 
 path_loop(){
-search_pattern="$1"
-for path in *$search_pattern*/; do
+search_pattern=$1
+for path in *"$search_pattern"*/; do
     if [[ -d ${path} ]] && [[ ${path} != "ins/" ]]; then
-        cd $path
+        cd "${path}" || continue
         system=${path/'/'}
         #echo "${system}"
-        traj_loop "$system"
+        if [[ -z ${serial} ]]; then
+            traj_loop "$system" &
+        else
+            traj_loop "$system"
+        fi
         cd ..
-    else
-        for parm in *.prmtop; do
-            if [[ -f ${parm} ]] && [[ ${parm} != "ions"* ]] && [[ ${parm} != "strip"* ]]; then
-                printf "Running in this directory.\n"
-                system=${parm/'.prmtop'}
-                if [[ -z ${serial} ]]; then
-                    traj_loop "$system" &
-                else
-                    traj_loop "$system"
-                fi
-            fi
-        done
     fi
 done
 }
 
+
 traj_loop(){
     system="$1"
-    for traj in *.nc; do
-        if [[ -f ${traj} ]]; then
+    md_num=1
+    #while [[ $(ls -A | head -c1 | wc -c) -eq 0 ]]; do
+    for md_num in $(seq 1 max_md_num); do
+        traj=${system}.md${md_num}.nc
+        [[ ! -f ${traj} ]] && continue
+        current_time=$(date +%s) #Gives echo time in seconds.
+        modified_time=$(date +%s -r ${traj})
+        dormant_time=$(( current_time - modified_time ))
+        #printf "Time since %s was last modified %s ago.\n" "${traj}" "${dormant_time}"
+        if [[ ${dormant_time} -gt ${dormant_cutoff_seconds} ]]; then
+            printf "%s has not been modified for more than %s.\n" "${traj}" "${dormant_cutoff_seconds}"
             strip_traj "$traj" "$system"
+        else
+            printf "%s might still be active. It was last modified %s seconds ago. Going to next traj. \n" "${traj}" "${dormant_time}"
+            continue
         fi
     done
 }
@@ -42,22 +51,10 @@ traj_loop(){
 strip_traj(){
     traj=$1
     system=$2
-    if [[ ${traj} == "ion"* ]] || [[ ${traj} == "strip"* ]] || [[ ${traj} == *"skip"* ]] || [[ ${traj} == "strip"* ]]; then
-        return 0
-    fi
-    current_time=$(date +%s) #Gives echo time in seconds.
-    modified_time=$(date +%s -r ${traj})
-    dormant_time=$(( current_time - dormant_time ))
-    #printf "Time since %s was last modified %s ago.\n" "${traj}" "${dormant_time}"
-    if [[ ${dormant_time} -gt ${dormant_cutoff_seconds} ]]; then
-        printf "%s has not been modified for more than %s.\n" "${traj}" "${dormant_cutoff_seconds}"
-    else
-        printf "%s might still be active. It was last modified %s seconds ago. Going to next traj. \n" "${traj}" "${dormant_time}"
-        return 0
-    fi
     trimname=${traj%'.nc'}
-    skipname="${trimname}.skip10.nc"
+    skipname="${trimname}.skip${keep_frame}.nc"
     strip_name="ions.${traj}"
+    trajin="compress.${system}.in"
     if [[ -f "$skipname" ]]; then
         printf "Skipped frame trajectory already exists. %s\n" "${skipname}"
     fi
@@ -66,26 +63,42 @@ strip_traj(){
     fi
     if [[ ${dormant_time} -gt 0 ]]; then
         echo "This traj: ${traj}"
-        echo "parm ${system}.prmtop" > traj.in
-        echo "trajin ${traj}" >> traj.in
+        echo "parm ${system}.prmtop" > $trajin
+        echo "trajin ${traj}" >> $trajin
         echo ${skipname}
-        echo "trajout ${skipname} offset ${keep_frame}" >> traj.in
-        echo "run" >> traj.in
+        echo "trajout ${skipname} offset ${keep_frame}" >> "$trajin"
+        echo "run" >> "$trajin"
         if [[ ! -f ions.${traj} ]]; then
-            echo "strip :WAT outprefix ions" >> traj.in
-            echo "trajout ions.${traj}" >> traj.in
+            echo "strip :WAT outprefix ions" >> "$trajin"
+            echo "trajout ions.${traj}" >> "$trajin"
         fi
-        printf "autoimage\n" >> traj.in
-        echo "run" >> traj.in
-        echo "quit" >> traj.in
+        printf "autoimage\n" >> "$trajin"
+        echo "run" >> "$trajin"
+        echo "quit" >> "$trajin"
         echo "Running cpptraj script."
-        cpptraj -i traj.in  | grep -v 'Could not determine atomic number from'
+        cpptraj -i "$trajin"  | grep -v 'Could not determine atomic number from'
         echo "Trajectory processed. Write protecting processed files."
-        chmod -w ${strip_name} ${skipname}
-        if [[ -f ${skipname} ]] && [[ -f ions.${traj} ]] && [[ ${delete_old_traj} == "True" ]]; then
-            chmod +w ${traj}
-            rm ${traj}
-            echo "Full length trajectory removed."
+        [[ ! -f ${skipname} ]] && return 0
+        [[ ! -f ${strip_name} ]] && return 0
+        traj_size=$(wc -c "$traj" | awk '{print $1}')
+        expected_skip_size=$(( 100 * traj_size / keep_frame / skip_size_buffer))
+        expected_strip_size=$(( solute_percent * traj_size / 100 )) # Rounds up. Use bc if precision needed.
+        skip_size=$(wc -c "$skipname" | awk '{print $1}')
+        strip_size=$(wc -c "$strip_name" | awk '{print $1}')
+        if [[ ${skip_size} -lt ${expected_skip_size} ]]; then
+          printf "WARNING: Skipped frame trajectory is too small.\t% s \n" "${skipname}"
+          printf "WARNING: Actual size: %s\n WARNING: Expected size: %s\n" "${skip_size}" "${expected_skip_size}"
+          return 0
+        elif [[ ${strip_size} -lt ${expected_strip_size} ]]; then
+          printf "WARNING: Solvent stripped trajectory is too small.\t% s \n" "${strip_name}"
+          printf "WARNING: Actual size: %s\n WARNING: Expected size: %s\n" "${strip_name}" "${expected_strip_size}"
+          return 0
+        fi
+        [[ "$write_protect" == "True" ]] && chmod -w ${strip_name} ${skipname}
+        if [[ ${delete_old_traj} == "True" ]]; then
+            chmod +w "${traj}"
+            rm "${traj}"
+            printf "Removed full length trajectory: %s\n." "$traj"
         fi
         sleep 2
     fi
@@ -99,7 +112,7 @@ while [[ $1 = -* ]]; do
     case $arg in
       -p)
         glob_pattern=$1
-        shift 1
+        shift
         ;;
       -serial)
         serial="True"
@@ -110,6 +123,9 @@ while [[ $1 = -* ]]; do
       -keep)
         keep_frame=$1
         shift
+        ;;
+      -np)
+        write_protect="False"
         ;;
     esac
 done
