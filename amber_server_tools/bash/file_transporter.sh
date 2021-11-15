@@ -26,8 +26,8 @@ destination=$2
 for path in *"${search_pattern/'/'}"*/; do
     if [[ -d ${path} ]] && [[ ${path} != "ins/" ]]; then
         cd "${path}" || continue
-        system=${path/'/'}
-        system_name=${system#'/'}
+        system_path=${path/'/'}
+        system_name=${system_path#'/'}
         printf "Moving files in folder %s.\n" "${system}"
         move_file "$system_name" "$destination"
         cd ..
@@ -59,12 +59,16 @@ move_file(){
     system=$1
     destination=$2
     destination_sub=$(readlink -m "${destination/'/'}/${system}")
-    printf "Parent destination: %s\n Subdirectory: %s\n" "$destination" "$destination_sub"
-    if [[ ! -d ${destination_sub} ]] && [[ "${create_folder}" == "True" ]]; then
-      mkdir "${destination_sub}" || printf "Unable to create folder %s. Moving on.\n" "${destination_sub}" && return 0
-    elif [[ ! -d ${destination_sub} ]] && [[ "${create_folder}" == "False" ]]; then
-      printf "Subdirectory %s does not exist. Not moving files in source directory %s.\n" "$destination_sub" "$system"
-      return 0
+    printf "Parent destination: %s\n\t Subdirectory: %s\n" "$destination" "$destination_sub"
+    if [[ ! -d ${destination_sub} ]]; then
+      destination_sub="${destination/'/'}/${system}"
+      printf "New subdirectory: %s\n" "$destination_sub"
+      if [[ ! -d ${destination_sub} ]] && [[ "${create_folder}" == "True" ]]; then
+        mkdir "${destination_sub}" || printf "Unable to create folder %s. Moving on.\n" "${destination_sub}" && return 0
+      elif [[ ! -d ${destination_sub} ]] && [[ "${create_folder}" == "False" ]]; then
+        printf "Subdirectory %s does not exist. Not moving files in source directory %s.\n" "$destination_sub" "$system"
+        return 0
+      fi
     fi
     #while [[ $(ls -A | head -c1 | wc -c) -eq 0 ]]; do
     # Loop through files.
