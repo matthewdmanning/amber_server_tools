@@ -84,7 +84,7 @@ move_file(){
         destination_file="${destination_sub}/${system_file}"
         if [[ ! -s "${destination_file}" ]]; then
           chmod +w "${system_file}"
-          builtin mv ${system_file} ${destination_sub} && printf "File %s doesn't exist in destination. Moving now.\n" "$system_file" && continue
+          command mv ${system_file} ${destination_sub} && printf "File %s doesn't exist in destination. Moving now.\n" "$system_file" && continue
         fi
         if [[ ${check_time} == "True" ]]; then
           destination_time=$(date +%s -r ${destination_file})
@@ -96,16 +96,16 @@ move_file(){
         big_file=$(bigger_file system_file destination_file)
         if [[ "$deep_check" != "True" ]] && [[  big_file -eq 0 ]]; then
           chmod +w ${system_file}
-          builtin mv ${system_file} ${destination_file} && printf "Source file %s is bigger than current file.\n" "$system_file" && continue
+          command mv ${system_file} ${destination_file} && printf "Source file %s is bigger than current file.\n" "$system_file" && continue
         elif [[ "$deep_check" == "True" ]] && [[ $(cmp --silent "$system_file" "$destination_file") ]]; then
           chmod +w ${system_file}
-          builtin mv ${system_file} ${destination_file} && printf "Source file %s is not identical to destination file.\n" "$system_file" && continue
+          command mv ${system_file} ${destination_file} && printf "Source file %s is not identical to destination file.\n" "$system_file" && continue
         fi
 
         printf "A copy of %s already exists in the destination.\n" "$system_file"
         if [[ "$copied_folder" == "True" ]]; then
           [[ ! -d "already_copied" ]] && mkdir "already_copied"
-          mv ${system_file} already_copied/ && printf "File %s moved to already_copied folder.\n" "$system_file" >> "$logfile"
+          command mv ${system_file} already_copied/ && printf "File %s moved to already_copied folder.\n" "$system_file" >> "$logfile"
         elif [[ "$delete_old_traj" == "True" ]]; then
           rm "$system_file" && printf "%s has been deleted.\n" "$system_file" >> "$logfile"
         fi
