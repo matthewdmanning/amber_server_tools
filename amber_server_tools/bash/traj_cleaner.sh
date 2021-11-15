@@ -29,9 +29,8 @@ done
 
 traj_loop(){
     system="$1"
-    md_num=1
     #while [[ $(ls -A | head -c1 | wc -c) -eq 0 ]]; do
-    for md_num in $(seq 1 max_md_num); do
+    for md_num in $(seq 1 "$max_md_num"); do
         traj=${system}.md${md_num}.nc
         [[ ! -f ${traj} ]] && continue
         current_time=$(date +%s) #Gives echo time in seconds.
