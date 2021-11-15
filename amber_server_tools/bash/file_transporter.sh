@@ -96,10 +96,10 @@ move_file(){
         big_file=$(bigger_file system_file destination_file)
         if [[ "$deep_check" != "True" ]] && [[  big_file -eq 0 ]]; then
           chmod +w "${system_file}"
-          command mv "${system_file}" "${destination_file}" && printf "Source file %s is bigger than current file.\n" "$system_file" && continue
+          command mv "${system_file}" "${destination_sub}/" && printf "Source file %s is bigger than current file.\n" "$system_file" && continue
         elif [[ "$deep_check" == "True" ]] && [[ $(cmp --silent "$system_file" "$destination_file") ]]; then
           chmod +w "${system_file}"
-          command mv "${system_file}" "${destination_file}" && printf "Source file %s is not identical to destination file.\n" "$system_file" && continue
+          command mv "${system_file}" "${destination_sub}/" && printf "Source file %s is not identical to destination file.\n" "$system_file" && continue
         fi
 
         printf "A copy of %s already exists in the destination.\n" "$system_file"
