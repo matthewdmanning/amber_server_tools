@@ -27,8 +27,8 @@ for path in *"${search_pattern/'/'}"*/; do
     if [[ -d ${path} ]] && [[ ${path} != "ins/" ]]; then
         cd "${path}" || continue
         system=${path/'/'}
-        #echo "${system}"
-        move_file "$system"
+        printf "Moving files in folder %s.\n" "${system}"
+        move_file "$system" "$destination"
         cd ..
     fi
 done
@@ -59,9 +59,10 @@ move_file(){
     destination=$2
     destination_sub="${destination/'/'}/${system}"
     if [[ ! -d ${destination_sub} ]] && [[ "${create_folder}" == "True" ]]; then
-      mkdir "${destination_sub}"
+      mkdir "${destination_sub}" || printf "Unable to create folder %s. Moving on.\n" "${destination_sub}" && return 0
     elif [[ ! -d ${destination_sub} ]] && [[ "${create_folder}" == "False" ]]; then
       printf "Subdirectory %s does not exist. Not moving files in source directory %s.\n" "$destination_sub" "$system"
+      return 0
     fi
     #while [[ $(ls -A | head -c1 | wc -c) -eq 0 ]]; do
     # Loop through files.
