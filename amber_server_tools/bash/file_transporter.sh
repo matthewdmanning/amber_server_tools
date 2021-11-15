@@ -57,7 +57,8 @@ bigger_file(){
 move_file(){
     system=$1
     destination=$2
-    destination_sub="${destination/'/'}/${system}"
+    destination_sub=$(readlink -m "${destination/'/'}/${system}")
+    printf "Parent destination: %s\n Subdirectory: %s\n" "$destination" "$destination_sub"
     if [[ ! -d ${destination_sub} ]] && [[ "${create_folder}" == "True" ]]; then
       mkdir "${destination_sub}" || printf "Unable to create folder %s. Moving on.\n" "${destination_sub}" && return 0
     elif [[ ! -d ${destination_sub} ]] && [[ "${create_folder}" == "False" ]]; then
@@ -125,7 +126,7 @@ while [[ $1 = -* ]]; do
         shift
         ;;
       -d)
-        destination=$1
+        parent_destination=$1
         shift
         ;;
       -cf) # Create folder for already copied files in source subdirectory.
@@ -160,11 +161,10 @@ if [[ "$copied_folder" == "True" ]]; then
   delete_old_traj="False"
 fi
 
-[[ -z "${destination}" ]] && printf "No destination given. Script not run.\n" && return 0
+[[ -z "${parent_destination}" ]] && printf "No destination given. Script not run.\n" && return 0
 
-printf "Moving files.\n"
 if [[ -z "$glob_pattern" ]]; then
-    path_loop "" "$destination"
+    path_loop "" "$parent_destination"
 else
-    path_loop "$glob_pattern" "$destination"
+    path_loop "$glob_pattern" "$parent_destination"
 fi
