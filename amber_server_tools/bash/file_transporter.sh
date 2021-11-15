@@ -22,14 +22,13 @@ logfile="mover.log"
 
 path_loop(){
 search_pattern=$1
-for path in *"$search_pattern"*/; do
+destination=$2
+for path in *"${search_pattern/'/'}"*/; do
     if [[ -d ${path} ]] && [[ ${path} != "ins/" ]]; then
         cd "${path}" || continue
         system=${path/'/'}
         #echo "${system}"
-        if [[ -z ${serial} ]]; then
-            move_file "$system"
-        fi
+        move_file "$system"
         cd ..
     fi
 done
@@ -56,7 +55,8 @@ bigger_file(){
 }
 
 move_file(){
-    system="$1"
+    system=$1
+    destination=$2
     destination_sub="${destination/'/'}/${system}"
     if [[ ! -d ${destination_sub} ]] && [[ "${create_folder}" == "True" ]]; then
       mkdir "${destination_sub}"
@@ -112,8 +112,6 @@ move_file(){
     done
 }
 
-
-unset serial
 unset glob_pattern
 unset destination
 
@@ -164,8 +162,8 @@ fi
 [[ -z "${destination}" ]] && printf "No destination given. Script not run.\n" && return 0
 
 printf "Moving files.\n"
-if [[ "$glob_pattern" == './' ]]; then
-    path_loop './'
+if [[ -z "$glob_pattern" ]]; then
+    path_loop "" "$destination"
 else
-    path_loop "$glob_pattern"
+    path_loop "$glob_pattern" "$destination"
 fi
