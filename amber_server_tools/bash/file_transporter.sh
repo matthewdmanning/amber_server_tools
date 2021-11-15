@@ -29,7 +29,7 @@ for path in *"${search_pattern/'/'}"*/; do
         system=${path/'/'}
         system_name=${system#'/'}
         printf "Moving files in folder %s.\n" "${system}"
-        move_file "$system" "$destination"
+        move_file "$system_name" "$destination"
         cd ..
     fi
 done
