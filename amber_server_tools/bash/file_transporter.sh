@@ -27,6 +27,7 @@ for path in *"${search_pattern/'/'}"*/; do
     if [[ -d ${path} ]] && [[ ${path} != "ins/" ]]; then
         cd "${path}" || continue
         system=${path/'/'}
+        system_name=${system#'/'}
         printf "Moving files in folder %s.\n" "${system}"
         move_file "$system" "$destination"
         cd ..
