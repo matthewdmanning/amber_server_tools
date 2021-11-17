@@ -16,11 +16,7 @@ for path in *"$search_pattern"*/; do
         cd "${path}" || continue
         system=${path/'/'}
         #echo "${system}"
-        if [[ -z ${serial} ]]; then
-            traj_loop "$system" &
-        else
-            traj_loop "$system"
-        fi
+        traj_loop "$system"
         cd ..
     fi
 done
@@ -112,9 +108,6 @@ while [[ $1 = -* ]]; do
       -p)
         glob_pattern=$1
         shift
-        ;;
-      -serial)
-        serial="True"
         ;;
       -delete)
         delete_old_traj="False"
