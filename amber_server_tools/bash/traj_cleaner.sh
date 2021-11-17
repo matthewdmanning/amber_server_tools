@@ -3,11 +3,11 @@ module load amber
 
 keep_frame=10
 dormant_cutoff_seconds=600 # Criterion for deciding whether a trajectory is being written to by running sim (in seconds).
-delete_old_traj="False"
+delete_old_traj="True"
 write_protect="True"
 max_md_num=200
 solute_percent=2 # Minimum file size of stripped trajectory as percentage of original trajectory
-skip_size_buffer=98 # Allows (100-x) undershoot of file size of solvent strip trajectory.
+skip_size_buffer=95 # Allows (100-x) undershoot of file size of solvent strip trajectory.
 
 path_loop(){
 search_pattern=$1
@@ -117,7 +117,7 @@ while [[ $1 = -* ]]; do
         serial="True"
         ;;
       -delete)
-        delete_old_traj="True"
+        delete_old_traj="False"
         ;;
       -keep)
         keep_frame=$1
@@ -126,10 +126,27 @@ while [[ $1 = -* ]]; do
       -np)
         write_protect="False"
         ;;
+      -sol)
+        solute_percent=$1
+        shift
+        ;;
+      -skip_buff)
+        skip_size_buffer=$1
+        shift
+        ;;
+      -dorm)
+        dormant_cutoff_seconds=$1
+        shift
+        ;;
+      -mdmax)
+        max_md_num=$1
+        shift
+        ;;
     esac
 done
 
 echo "Starting trajectory cleaning run."
+[[ ${delete_old_traj} == "False" ]] && printf "Full-size trajectories will not be deleted after processing.\n"
 if [[ "$glob_pattern" == './' ]]; then
     path_loop './'
 else
