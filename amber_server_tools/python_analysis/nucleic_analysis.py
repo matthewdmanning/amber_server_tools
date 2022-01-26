@@ -1,10 +1,6 @@
 import copy
 import math
-
 import numpy as np
-import plotly
-import plotly.graph_objs as go
-
 
 def sphereFit(coords_array):
     #   Assemble the A matrix
@@ -99,8 +95,8 @@ center_of_bending = np.argmin(rolling_mean_radius)
 print(center_of_bending - window_size / 2)
 
 # Plot time series of radius of curvature
-radius_trace = []
-for base_pair in list(range(num_bases - window_size - 1)):
-    radius_trace.append(go.Scatter(x=frame_vector, y=radius_of_curvature[base_pair, :]))
-fig = go.Figure(data=radius_trace)
-plotly.offline.plot(fig)
+#radius_trace = []
+#for base_pair in list(range(num_bases - window_size - 1)):
+#    radius_trace.append(go.Scatter(x=frame_vector, y=radius_of_curvature[base_pair, :]))
+#fig = go.Figure(data=radius_trace)
+#plotly.offline.plot(fig)
