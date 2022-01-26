@@ -13,12 +13,12 @@ number_of_windows=$(( nucleic_length - window_size + 1 ))
 
 
 
-for window in `seq 1 $number_of_windows`; do
+for window in $( seq 1 number_of_windows ); do
     first_start=$(( nucleic_start + window - 1 ))
     first_stop=$(( first_start + window_size - 1 ))
     second_stop=$(( nucleic_stop - window + 1 ))
     second_start=$(( second_stop - window_size + 1 ))
-    printf "radgyr rog_%s-%s :%s-%s,%s-%s out %s\n" "$first_start" "$first_stop" "$first_start" "$first_stop" "$second_start" "$second_stop" "$rog_file"  >> ${traj_input}
+    printf "radgyr rog_%s-%s :%s-%s,%s-%s out %s\n" "$first_start" "$first_stop" "$first_start" "$first_stop" "$second_start" "$second_stop" "$rog_file"  >> "${traj_input}"
 done
 
 }
@@ -31,12 +31,11 @@ traj_input=$3
 com_filename=basepair_com.dat
 nucleic_length=$(( (nucleic_stop - nucleic_start + 1) / 2 ))
 
-for index in `seq 1 $nucleic_length`; do
+for index in $(seq 1 nucleic_length); do
     first_res=$(( nucleic_start + index - 1 ))
     second_res=$(( nucleic_stop - index + 1 ))
-    printf 'vector com_%s center :%s,%s out %s\n' "$index" "$first_res" "$second_res" "$com_filename" >> ${traj_input}
+    printf 'vector com_%s center :%s,%s out %s\n' "$index" "$first_res" "$second_res" "$com_filename" >> "${traj_input}"
 done
-
 }
 
 simple_com(){
@@ -45,7 +44,7 @@ mask=$1
 traj_input=$2
 simple_com_filename=$3
 
-    printf 'vector com_%s center %s out %s\n' "$index" "$mask" "$simple_com_filename" >> ${traj_input}
+    printf 'vector com_%s center %s out %s\n' "$index" "$mask" "$simple_com_filename" >> "${traj_input}"
 }
 
 distance_com(){
@@ -60,11 +59,9 @@ nucleic_length=$(( (nucleic_stop - nucleic_start + 1) / 2 ))
 for index in `seq 1 $nucleic_length`; do
     first_res=$(( nucleic_start + index - 1 ))
     second_res=$(( nucleic_stop - index + 1 ))
-    printf 'vector com_nucleic_%s mask :%s,%s %s magnitude out %s\n' "$index" "$first_res" "$second_res" "$mask" "$distance_filename" >> ${traj_input}
-    printf 'vectormath vec1 com_nucleic_%s vec2 %s out %s\n' "$index" "$mask_com_vec"
+    printf 'vector com_nucleic_%s mask :%s,%s %s magnitude out %s\n' "$index" "$first_res" "$second_res" "$mask" "$distance_filename" >> "${traj_input}"
+    printf 'vectormath vec1 com_nucleic_%s vec2 %s out %s\n' "$index" "$mask_com_vec" "$distance_filename" >> "${traj_input}"
 done
-
-
 
 
 }
@@ -78,20 +75,17 @@ traj_input=$4
 distance_filename=min_distance.dat
 nucleic_length=$(( (nucleic_stop - nucleic_start + 1) / 2 ))
 
-for index in `seq 1 $nucleic_length`; do
+for index in $(seq 1 nucleic_length); do
     first_res=$(( nucleic_start + index - 1 ))
     second_res=$(( nucleic_stop - index + 1 ))
-    printf 'vector com_nucleic_%s mask %s :%s,%s magnitude out %s\n' "$index" "$mask" "$first_res" "$second_res" "$distance_filename" >> ${traj_input}
+    printf 'vector com_nucleic_%s mask %s :%s,%s magnitude out %s\n' "$index" "$mask" "$first_res" "$second_res" "$distance_filename" >> "${traj_input}"
 done
 
 }
 
-e2e(){
+#e2e(){}
 
-    printf "rog
-
-}
-path(){
+run_glob(){
 start_res=$1
 stop_res=$2
 window_size=$3
@@ -107,19 +101,19 @@ for folder in */; do
     #distance_com "$start_res" "$stop_res" "$mask2" "$traj_input"
     minimum_dist "$start_res" "$stop_res" "$mask2" "$traj_input"
     #simple_com "$mask2" "$traj_input" "au_core_com.dat"
-    printf "run\n" >> ${traj_input}
-    printf "quit\n" >> ${traj_input}
+    printf "run\n" >> "${traj_input}"
+    printf "quit\n" >> "${traj_input}"
 done
 }
 
 printf "What is the residue number of the first nucleic acid?\t"
-read start_res
+read -r start_res
 printf "What is the residue number of the last nucleic acid?\t"
-read stop_res
+read -r stop_res
 
 printf "How long should the rolling window be?\t"
-read window_size
+read -r window_size
 printf "What is the mask for the second group of atoms?\t"
-read mask2
+read -r mask2
 
-path "$start_res" "$stop_res" "$window_size" "$mask2"
+run_glob "$start_res" "$stop_res" "$window_size" "$mask2"
