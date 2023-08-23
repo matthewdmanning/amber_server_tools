@@ -3,14 +3,14 @@
 
 # Create git up alias. Apparently better than git pull. See https://stackoverflow.com/q/15316601/712605
 git config --global alias.up '!git remote update -p; git merge --ff-only @{u}'
-repo=amber_server_tools
+repo_name=amber_server_tools
 
-(cd "${repo}" && git checkout master && git up)
+(cd "${repo_name}" && git checkout master && git up)
 
-if [ -f /home/mdmannin/git/amber_server_tools/amber_server_tools/ ]; then
-	repo=/home/mdmannin/git/amber_server_tools/amber_server_tools
-elif [ -f /home/mdmannin/git/amber_server_tools/ ]; then
-	repo=/home/mdmannin/git/amber_server_tools
+if [ -f ${HOME}/git/${repo_name}/${repo_name}/ ]; then
+	repo=${HOME}/git/${repo_name}/${repo_name}
+elif [ -f ${HOME}/git/${repo_name}/ ]; then
+	repo=${HOME}/git/${repo_name}
 else
-	printf "No git directory found. amber_server_tools not available!"
+	printf "No git directory found. ${repo_name} not available!"
 fi
