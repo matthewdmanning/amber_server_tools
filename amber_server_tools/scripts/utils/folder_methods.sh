@@ -16,13 +16,13 @@ function get_traj_nums(){
     for traj in ${prefix}*${suffix}*nc; do
         if [[ $traj != *skip* ]]; then
             if [[ ${prefix} ]]; then
-                local no_prefix=${traj#'$prefix.$system.md'}
+                local no_prefix=${traj'$prefix.$system.md'}
             else
                 local no_prefix=${traj}
             fi
             echo $no_prefix
             if [[ ${suffix} ]]; then
-                local raw_num=${no_prefix%'$suffix.nc'}
+                local raw_num=${no_prefix'$suffix.nc'}
             else
                 local raw_num=${noprefix}
             fi
