@@ -3,7 +3,7 @@
 
 function get_traj_nums(){
 
-    local path=$1
+    local sys_path=$1
     local system=$2
     # Prefix and suffix only needed to filter for "ions.", "strip.", "skip10.", etc.
     # Passing empty strings will get all .nc trajectories.
@@ -65,12 +65,12 @@ function get_continuous(){
 }
 
 function get_continuous_traj(){
-    local path=$1
+    local sys_path=$1
     local system=$2
     local prefix=$3
     local suffix=$4
     local __return_array=$5
-    get_traj_nums "$path" "$system" "$prefix" "$suffix" traj_num_array
+    get_traj_nums "$sys_path" "$system" "$prefix" "$suffix" traj_num_array
     get_continuous "$traj_num_array" cont_array
     if [[ "$__return_array" ]]; then
         eval $__return_array="'cont_array'"
@@ -81,15 +81,15 @@ function get_continuous_traj(){
 
 # Checks if all trajectories in a folder have been stripped of water (and ions).
 function check_stripped(){
-    local path=$1
+    local sys_path=$1
     local system=$2
     local prefix=$3
-    local full_traj_nums=$(get_traj_nums "$path" "$system")
+    local full_traj_nums=$(get_traj_nums "$sys_path" "$system")
     if [[ $prefix ]]; then
-        local stripped_traj_nums=$(get_traj_nums "$path" "$system" "$prefix")
+        local stripped_traj_nums=$(get_traj_nums "$sys_path" "$system" "$prefix")
     else
-        local strip_traj_nums=$(get_traj_nums "$path" "$system" "strip")
-        local ions_traj_nums=$(get_traj_nums "$path" "$system" "ions")
+        local strip_traj_nums=$(get_traj_nums "$sys_path" "$system" "strip")
+        local ions_traj_nums=$(get_traj_nums "$sys_path" "$system" "ions")
         local non_stripped_traj=()
         local non_ioned_traj=()
     fi
