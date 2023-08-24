@@ -1,7 +1,7 @@
 #!/usr/bin/env scripts
 
 buffer=10
-salt=60
+salt=0
 water=tip3p
 dna="False"
 rna="False"
@@ -51,11 +51,38 @@ while [[ $1 = -* ]]; do
 done
 
 load_ffs(){
-    local frcmod_dir="/home/mdmannin/Desktop/Nanoparticles/Ligands/Charged/frcmod/"
     local mol2_name=$1
     local leapin=$2
+    shift 2
+    [[ -f ${leapin} ]] && rm ${leapin}
     echo "" > ${leapin}
-	if [[ $dna == "True" ]]; then
+    while [[ $1 = -* ]]; do
+      arg=$1; shift
+      case $arg in
+        -frcmod)
+          frcmod_namelist=()
+          local mod=$1
+          [[ $mod != -* ]] && frcmod_namelist=()
+          while [[ $mod != -* ]]; do
+            frcmod_namelist+=$mod
+            shift
+          done
+          ;;
+        -modfile)
+          local mod_file=$1
+          ;;
+      esac
+    done
+  # Issue: Move this to NP project specific file.
+  while IFS="" read -r p || [ -n "$p" ]; do
+    printf 'loadamberparams %s\n' "$p" >> ${leapin}
+  done < $mod_file
+	for frcmod_name in ${frcmod_namelist[@]}; do
+  	printf "loadamberparams ${frcmod_name}.frcmod\n" >> ${leapin}
+    # Issue: Remove for non-NA simulations. Allow explicit loading of FFs.
+  while IFS="" read -r p || [ -n "$p" ]; do
+    printf 'loadamberparams %s\n' "$p" >> ${leapin}
+  done < $mod_file	if [[ $dna == "True" ]]; then
     	printf "source leaprc.DNA.OL15\n" >> ${leapin}
 	elif [[ $rna == "True" ]]; then
 	    printf "source leaprc.RNA.OL3\n" >> ${leapin}
@@ -66,17 +93,15 @@ load_ffs(){
     printf "source leaprc.water.%s\n" "$water" >> ${leapin}
 	#fi
 	printf "source leaprc.gaff2\n" >> ${leapin}
-	printf "loadamberparams AuNP.frcmod\n" >> ${leapin}
+  # Issue: Move this to NP project specific file.
 	for modpath in ${frcmod_dir}${frcmod}*.frcmod; do
 		modfile=${modpath#$frcmod_dir}
 		ligand=${modfile%'.frcmod'}
-		if [[ "${nano_name}" == *"$ligand"* ]] && [[ -f ${modpath} ]]; then
+		if [[ "${sys_name}" == *"$ligand"* ]] && [[ -f ${modpath} ]]; then
 			printf "loadamberparams %s\n" "$modpath" >> ${leapin}
 		fi
 	done
 }
-
-
 
 write_leap_file(){
     mol2_name=$1
@@ -84,44 +109,38 @@ write_leap_file(){
 	    printf "mol2 file %s does not exist.\n" "$mol2_name"
         return
 	fi
-	nano_name=${mol2_name%'.mol2'}
+	sys_name=${mol2_name%'.mol2'}
     local leapin="leap.in"
 	echo "" > "$leapin"
     load_ffs "$mol2_name" "$leapin"
 	echo ${leapin}
 	#Load nanoparticle
-	printf "nano = loadmol2 %s\n" "$mol2_name" >> ${leapin}
-	printf "alignaxes nano\n" >> ${leapin}
+	printf "topo = loadmol2 %s\n" "$mol2_name" >> ${leapin}
+	printf "alignaxes topo\n" >> ${leapin}
+	# Issue: Move this to NP project specific file.
 	if [[ $bond_core == "True" ]]; then
-	    printf "bondbyDistance nano.1 2.9\n" >> ${leapin}
-	    printf "savemol2 nano %s 1\n" "$nano_name"_bond.mol2 >> ${leapin}
+	    printf "bondbyDistance topo.1 2.9\n" >> ${leapin}
+	    printf "savemol2 topo %s 1\n" "$sys_name"_bond.mol2 >> ${leapin}
     fi
+  # Issue: Doesn't allow for other water models!
 	#Neutralize and solvate NP
 	#if [[ $solvate == "True" ]]; then
     printf "Solvating system...\n"
-    printf "solvatebox nano TIP3PBOX %s\n" "$buffer" >> ${leapin}
-    printf "addions nano Cl- 0\n" >> ${leapin}
-    printf "addions nano Na+ 0\n" >> ${leapin}
-    printf "addionsrand nano Na+ %s Cl- %s\n" "$salt" "$salt" >> ${leapin}
+    printf "solvatebox topo TIP3PBOX %s\n" "$buffer" >> ${leapin}
+    printf "addions topo Cl- 0\n" >> ${leapin}
+    printf "addions topo Na+ 0\n" >> ${leapin}
+    printf "addionsrand topo Na+ %s Cl- %s\n" "$salt" "$salt" >> ${leapin}
     #fi
-    printf "saveamberparm nano %s.prmtop %s.rst7\n" "$nano_name" "$nano_name" >> ${leapin}
+    printf "saveamberparm topo %s.prmtop %s.rst7\n" "$sys_name" "$sys_name" >> ${leapin}
 	printf "quit\n" >> ${leapin}
 	if [[ -f leap.log ]]; then
     	rm leap.log
 	fi
 	if [[ $run == "True" ]]; then
     	tleap -f ${leapin} &> leap.log
-	    #grep -v "maximum number of bonds" | grep -v "triangular" temp.log > leap.log
-	    #more leap.log
-	    #rm temp.log
 	fi
-	#grep [sS]tring leap.log
 }
 
-#printf "These are the available frcmod files."
-#ls ${frcmod_dir}
-#curdir=`pwd`
-#leapin="${curdir}/leap.in"
 sys_path="./"
 
 # Loop through available files.
@@ -131,12 +150,12 @@ if [[ ${mol} == "True" ]]; then
             echo $mol2_name
             continue
         fi
-        nano_name=${mol2_name/'.mol2'}
-        if [[ ! -d ${sys_path}${nano_name} ]]; then
-            mkdir ${sys_path}${nano_name}
+        sys_name=${mol2_name/'.mol2'}
+        if [[ ! -d ${sys_path}${sys_name} ]]; then
+            mkdir ${sys_path}${sys_name}
         fi
-        mv ${mol2_name} ${sys_path}${nano_name}
-        cd ${sys_path}${nano_name}
+        mv ${mol2_name} ${sys_path}${sys_name}
+        cd ${sys_path}${sys_name}
         write_leap_file "$mol2_name"
         cd ..
     done

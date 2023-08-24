@@ -1,13 +1,21 @@
 #!/bin/scripts
 
-
+# Directories may need to be modified for robustness. Eg. Trajectories assumed to be stored in run directory with no
+# option for a separate directory.
+# Creates a new file curves.sh in run directory.
 
 overwrite_traj=false
 
-source ~/PycharmProjects/nanorodbuilder/inFiles/folder_methods.sh
+call_methods(){
+  SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+  cd "$SCRIPT_DIR"
+  source ../../scripts/utils/folder_methods.sh
+}
+
+call_methods
 
 write_curves_input(){
-    local path=$1
+    local sys_path=$1
     local system=$2
     local residue_start=$3
     local residue_stop=$4
@@ -26,18 +34,19 @@ write_curves_input(){
     local first_stop=$(( second_start - 1))
 
     local output_prefix="curves_${nucleic_type}"
-    #echo `ls -ld ${path}/${output_prefix}*`
+    #echo `ls -ld ${sys_path}/${output_prefix}*`
 
 printf "Running Curves+ analysis on %s.\n" "${system}"
 
-cd $path
+cd $sys_path
 curves_input="./curves.sh"
-curves_lib="/home/mdmannin/curves+/standard"
+curves_dir=$(find / -type d -name "curves+" 2>/dev/null)
+curves_lib="${curves_dir}/standard"
 traj_path="./"
 
 cat <<EOT > ${curves_input}
 rm ${output_prefix}*
-/home/mdmannin/curves+/Cur+ <<!
+${curves_dir}/Cur+ <<!
  &inp ftop=${parm_name}, file=${traj_name}, lis=${output_prefix}, ions=${ions}, axfrm=.t, fit=.t, lib=${curves_lib},
 &end
 2 1 -1 0 0
@@ -55,15 +64,13 @@ cd ..
 }
 
 write_canal_input(){
-    local path=$1
+    local sys_path=$1
     local system=$2
     local residue_start=$3
     local residue_stop=$4
     local nucleic_type=$5
     local parm_name=$6
     local traj_name=$7
-
-
 
 rm test_ga.* test_ga_*.*
 /Users/RL/Code/util/canal <<!
@@ -76,7 +83,7 @@ rm test_ga.* test_ga_*.*
 }
 
 write_curves_pdb(){
-    local path=$1
+    local sys_path=$1
     local system=$2
     local residue_start=$3
     local residue_stop=$4
@@ -97,7 +104,7 @@ write_curves_pdb(){
 rm ${curves_input}
 cat <<EOT > ${curves_input}
 rm ${output_prefix}.*
-/home/mdmannin/curves+/Cur+ <<!
+${curves_dir}/Cur+ <<!
  &inp file=${traj_name}, lis=${output_prefix}, ions=${ions}, axfrm=.t, fit=.t,
  lib=${curves_lib},
  &end
@@ -111,7 +118,7 @@ EOT
 # Processes trajectory by stripping trajectory and leaving only specified range of residues.
 prep_separate_traj(){
 
-    local path=$1
+    local sys_path=$1
     local system=$2
     local traj_start=$3
     local traj_stop=$4
@@ -127,36 +134,36 @@ prep_separate_traj(){
     printf "Preparing trajectories for MD runs %s-%s.\n" "${traj_start}" "${traj_stop}"
     sleep 5
     # Set the GLOBAL variables for the prmtop and trj file names.
-    input_parm="${path}/${traj_prefix}${system}.prmtop"
+    input_parm="${sys_path}/${traj_prefix}${system}.prmtop"
     nucleic_parm="${nucleic_type}.prmtop"
     nucleic_traj="${nucleic_type}.md${traj_start}-${traj_stop}.${offset}.trj"
     printf "Outputting AMBER trajectory: %s.\n\n" "${nucleic_traj}"
     sleep 5
-    if [[ ! -f ${path}/${nucleic_traj} ]] || [[ "${overwrite_traj}" != "false" ]]; then
-        if [[ -f ${path}/${nucleic_traj} ]]; then
+    if [[ ! -f ${sys_path}/${nucleic_traj} ]] || [[ "${overwrite_traj}" != "false" ]]; then
+        if [[ -f ${sys_path}/${nucleic_traj} ]]; then
             printf "Trajectory %s already exists. Overwriting.\n" "${nucleic_traj}"
         fi
         printf "parm %s\n" "${input_parm}" > ${trajin}
         for traj_num in `seq $traj_start $traj_stop`; do
             local input_traj=${traj_prefix}${system}.md${traj_num}.${traj_suffix}nc
-            printf "trajin %s/%s 1 last %s\n" "${path}" "${input_traj}" "${offset}" >> ${trajin}
+            printf "trajin %s/%s 1 last %s\n" "${sys_path}" "${input_traj}" "${offset}" >> ${trajin}
         done
         printf "image :%s\n" "${residue_start}" >> ${trajin}
         printf "strip !:%s-%s\n" "${residue_start}" "${residue_stop}" >> ${trajin}
-        printf "parmwrite out %s/%s\n" "${path}" "${nucleic_parm}" >> ${trajin}
-        printf "trajout %s/%s\n" "${path}" "${nucleic_traj}" >> ${trajin}
+        printf "parmwrite out %s/%s\n" "${sys_path}" "${nucleic_parm}" >> ${trajin}
+        printf "trajout %s/%s\n" "${sys_path}" "${nucleic_traj}" >> ${trajin}
         printf "run\n" >> ${trajin}
         printf "quit\n" >> ${trajin}
 
         cpptraj -i ${trajin} | grep -v 'Could not determine atomic number from'
         #mv ${nucleic_traj} ${nucleic_traj/'crd'/'trj'}
-    elif [[ -f ${path}/${nucleic_traj} ]]; then #&& [[ "${overwrite_traj}" == "false" ]]; then
+    elif [[ -f ${sys_path}/${nucleic_traj} ]]; then #&& [[ "${overwrite_traj}" == "false" ]]; then
         printf "Trajectory %s already exists. Not overwriting.\n" "${nucleic_traj}"
 
     fi
 }
 
-path(){
+sys_path(){
     local na_start=1
     local na_stop=80
     #local traj_offset=10
@@ -180,8 +187,8 @@ path(){
             echo "Inputs found. Skipping."
             continue
         fi
-        local path=${folder/'/'}
-        local system="$path"
+        local sys_path=${folder/'/'}
+        local system="$sys_path"
         printf "Processing system: %s\n" "${system}"
         if [[ ${system} == "*rna*" ]]; then
             na_type="rna"
@@ -189,34 +196,34 @@ path(){
             na_type="dna"
         else
             echo "Nucleic acid type not found in ${system}. Enter manually..."
-            #read na_type
-            na_type=rna
+            read na_type
+            #na_type=rna
         fi
         printf "Using nucleic acid type: %s.\n" "${na_type}"
         #na_type=rna
 
-        #trajectory_number_array = get_continuous_traj "$path" "$system" "ions" ""
+        #trajectory_number_array = get_continuous_traj "$sys_path" "$system" "ions" ""
         #local trajectory_number_array=(1 2 3 4 5 6 7)
         #echo ${trajectory_number_array[*]}
         #"${trajectory_number_array[0]}" "${trajectory_number_array[-1]}"
-        ls ${path}/${traj_prefix}*.nc
+        ls ${sys_path}/${traj_prefix}*.nc
         #printf "What is the index of the first trajectory?: \n"
         #read traj_start
         #printf "What is the index of the first trajectory?: \n"
         #read traj_last
         traj_start=0
-        printf "Search for trajectories: %s/%s%s.md*.%snc.\n" "${path}" "${traj_prefix}" "${system}" "${traj_suffix}"
-        while [[ ! -f "${path}/${traj_prefix}${system}.md${traj_start}.${traj_suffix}nc" ]] && [[ ${traj_start} -lt 100 ]]; do
-            echo "${path}/${traj_prefix}${system}.md${traj_start}.${traj_suffix}nc"
+        printf "Search for trajectories: %s/%s%s.md*.%snc.\n" "${sys_path}" "${traj_prefix}" "${system}" "${traj_suffix}"
+        while [[ ! -f "${sys_path}/${traj_prefix}${system}.md${traj_start}.${traj_suffix}nc" ]] && [[ ${traj_start} -lt 100 ]]; do
+            echo "${sys_path}/${traj_prefix}${system}.md${traj_start}.${traj_suffix}nc"
             traj_start=$(( traj_start + 1 ))
         done
         if [[ ${traj_start} -eq 0 ]] || [[ ${traj_start} -eq 100 ]]; then
             printf "No trajectories found. Moving to next system."
             continue
         fi
-        printf "First trajectory found: %s.\n" "${path}/${traj_prefix}${system}.md${traj_start}.${traj_suffix}nc"
+        printf "First trajectory found: %s.\n" "${sys_path}/${traj_prefix}${system}.md${traj_start}.${traj_suffix}nc"
         traj_last=$(( traj_start + 0 ))
-        while [[ -f "${path}/${traj_prefix}${system}.md${traj_last}.${traj_suffix}nc" ]]; do
+        while [[ -f "${sys_path}/${traj_prefix}${system}.md${traj_last}.${traj_suffix}nc" ]]; do
             traj_last=$(( traj_last + 1 ))
         done
         # Go back to last valid trajectory.
@@ -224,21 +231,21 @@ path(){
         echo ${traj_start} ${traj_last}
         #traj_start=3
         #traj_last=5
-        prep_separate_traj "${path}" "${system}" "${traj_start}" "${traj_last}" "${na_start}" "${na_stop}" "${traj_prefix}" "${traj_suffix}" "${traj_offset}" "${na_type}"
+        prep_separate_traj "${sys_path}" "${system}" "${traj_start}" "${traj_last}" "${na_start}" "${na_stop}" "${traj_prefix}" "${traj_suffix}" "${traj_offset}" "${na_type}"
 
         new_na_start=1
         new_na_stop=$(( na_stop - na_start + 1 ))
-        write_curves_input "${path}" "${system}" "${new_na_start}" "${new_na_stop}" "${na_type}" "${nucleic_parm}" "${nucleic_traj}"
+        write_curves_input "${sys_path}" "${system}" "${new_na_start}" "${new_na_stop}" "${na_type}" "${nucleic_parm}" "${nucleic_traj}"
         source ~/PycharmProjects/nanorodbuilder/CurvesCanal/canal.sh
     done
 }
 run_type=$1
 if [[ ! $run_type ]]; then
-    printf "Select between path or here...\n"
+    printf "Select between sys_path or here...\n"
     read run_type
 fi
-if [[ ${run_type} == "path" ]]; then
-    path
+if [[ ${run_type} == "sys_path" ]]; then
+    sys_path
 #elif [[ ${run_type} == "here" ]]; then
 #    here
 fi

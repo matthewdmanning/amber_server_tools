@@ -31,6 +31,10 @@ fi
 # colored GCC warnings and errors
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 #FFFFFF
+# PATHS
+repo_dir:$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && cd ../.. && pwd )
+export PATH=$PATH:${repo_dir}
+
 # Set and source latest version of AMBER
 module load amber
 module load ambertools
@@ -41,23 +45,25 @@ alias la='ls -A'
 alias l='ls -CF'v
 alias mroe='more'
 alias du='du -h --max-depth=1'
-alias sims="python3 ${repo}/python_analysis/census.py"
+alias sims="python3 ${repo_dir}/analysis/python_analysis/census.py"
 
 sshfs mdmannin@yystorage.mse.ncsu.edu:/media/sdc1/mdmannin /home/mdmannin/storage -o follow_symlinks,workaround=rename,uid=`id -u`,gid=`id -g`
 sshfs mdmannin@yystorage.mse.ncsu.edu:/media/sdb1/Storage/mdmannin /home/mdmannin/storage2 -o follow_symlinks,workaround=rename,uid=`id -u`,gid=`id -g`
 
 # PATHS
-export PATH=$PATH:/home/mdmannin/git/amber_server_tools/amber_server_tools
+repo_dir:$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && cd ../../.. && pwd )
+export PATH=$PATH:${repo_dir}
 
 # User specific aliases and functions
-alias htop="htop -u mdmannin"
+alias htop="htop -u $USER"
 alias ls='ls -ltrh --color=auto'
-alias getweak="source ${repo}/bash/folder_setup_server.sh weak pme"
-alias getlang="source ${repo}/bash/folder_setup_server.sh lang pme"
-alias traj="source ${repo}/bash/traj_cleaner.sh"
-#alias amber="source ${repo}/bash/run_amber.sh"
-alias runamber="nohup ${repo}/bash/run_amber.sh"
+alias getweak="source ${repo_dir}/bash/folder_setup_server.sh weak pme"
+alias getlang="source ${repo_dir}/bash/folder_setup_server.sh lang pme"
+alias traj="source ${repo_dir}/bash/traj_cleaner.sh"
+#alias amber="source ${repo_dir}/bash/run_amber.sh"
+alias runamber="nohup ${repo_dir}/bash/run_amber.sh"
 
+# Issue: Make module versions relative to system.
 # Load other modules.
 module load namd/2.12_cuda
 #module load lammps/11Aug17
